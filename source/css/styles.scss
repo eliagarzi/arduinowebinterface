@@ -1,0 +1,360 @@
+:root {
+    
+    //Text
+    --primary-text-color:
+    --secondary-text-color: 
+    
+    //Background
+    --primary-background-color: 
+
+    //Background
+    --primary-background-color: 
+
+    //Button
+    --primary-button-color: 
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+button {
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+
+    background-color: #3FB859;
+
+    color: white;
+    font-size: 15rem;
+    height: 28px;
+    width: 55px;
+    border-radius: 25px;
+}
+
+html, body {
+    font-size: 1px;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    
+    display: grid;
+    grid-template-rows: 12% 88%; //Grösse Header und grösse Overview
+
+    background-color: #13192b;
+}
+
+header {
+    height: 100%;
+    width: 100%;
+
+    padding: 2% 0% 0% 2%;
+
+    display: flex;
+    flex-flow: row; //Elemente werden in einer Zeile aufgelistet
+
+    .header-element {
+        color: white;
+        font-size: 10rem;
+    }
+
+    .header-element:last-child {
+        margin-left: 1%; //Damit der New Arduino Button nicht am Text klebt
+    }
+
+    .header-element__new-arduino-button {
+        width: 100px !important;
+        background-color: #3FB859;
+
+        &:hover {
+            transition: all 100ms;
+            background-color: #4ea160;
+        }
+    }
+}
+
+.overview {
+    display: grid;
+    grid-template-rows: 20% 80%;
+    grid-template-columns: 1;
+    padding-left: 2%;
+}
+
+.overview-header {
+    width: 100%;
+    grid: 1/1;
+
+    display: flex;
+    justify-content: flex-start;
+
+    .overview-header__element {
+        margin-right: 1%;
+        padding: 1%;
+        width: 100px;
+        height: 100px;
+        border-radius: 10%;
+        background-color: #182341;
+        box-shadow: 5px 1px 24px -5px rgba(0,0,0,0.75);
+
+        
+        color: white;
+
+        .overview-header__element--title {
+            font-size: 11rem;
+            color: #919191;
+        }
+
+        .overview-header__element--value {
+            font-size: 15rem;
+            font-weight: 900;
+        }
+
+        .overview-header__element--trend {
+            font-size: 11rem;
+            color: #3FB859;
+        }
+
+        &:hover {
+            transition: all 500ms;
+            background-color: #373e55;
+            box-shadow: 5px 1px 24px -5px rgba(0,0,0,0.9);
+        }
+    }
+
+
+}
+
+.arduino-table {
+    grid: 2/1;
+
+    background-color: #182341;
+    width: 900px;
+    height: 400px;
+    box-shadow: 5px 1px 24px -5px rgba(0,0,0,0.75);
+    border-radius: 10px;
+
+    table {
+        border-collapse: collapse;
+
+        width: 100%;
+
+        tr:nth-child(odd) {
+            background-color: #233658;
+        }
+
+        tr {    
+            width: 100%;
+            height: 40px;
+
+            th, td {
+                color: white;
+                padding-left: 1%;
+                text-align: start;
+            }
+
+            th {
+                font-weight: 900;
+                font-size: 15rem;
+            }
+
+            td {
+                font-size: 12rem;
+            }
+
+        }
+
+    }
+
+}
+
+.arduino-elements {
+    width: 250px;
+    height: 400px;
+
+    display: flex;
+    flex-flow: column;
+
+    box-shadow: 5px 1px 24px -5px rgba(0,0,0,0.75);
+
+
+    p {
+        font-size: 20rem;
+    }
+
+    .arduino-element--header {
+        height: 10%;
+        width: 100%;
+
+        padding: 3%;
+
+        background-color: #182341;
+
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: flex-start;
+
+        border-radius: 15px 15px 0 0;
+
+        .arduino-element--header-element-button-delete {
+            background-color: #eb3434;
+        }
+
+    }
+
+    .arduino-element--body {
+        height: 90%;
+        width: 100%;
+
+        padding: 3%;
+
+        background-color: #182341;
+
+        border-radius: 0 0 15px 15px;
+    }    
+
+
+}
+
+//Hiermit wird der Hintergrund grau, sobald das Menü zum hinzufügen eines neuen Arduino geöffnet wird
+.new-arduino-menu--blur {
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(43, 43, 43, 0.411);
+    backdrop-filter: blur(200px);
+}
+
+.new-arduino-menu {
+    background-color: #ffffff;
+    position: absolute;
+    display: none;
+    width: 350px;
+    height: 390px;
+    border-radius: 3px;
+
+    top: 20%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2%;
+    font-size: 20rem;
+
+    .new-arduino-menu__header {
+        color: black;
+        font-size: 15rem;
+    }
+
+    .new-arduino-menu__body {
+        display: flex;
+        flex-flow: column;
+
+        form {
+            display: flex;
+            flex-flow: column;
+
+            .form-element {
+                margin-top: 15px;
+                display: flex;
+                flex-flow: column;
+                justify-content: flex-start;
+
+                label {
+                    font-size: 15rem;
+                    color: #5f5f5f;
+                }
+
+                input {
+                    height: 30px;
+                }
+
+            }
+
+            .form-token {
+                display: flex;
+                flex-flow: column;
+
+                p {
+                    font-size: 20rem;
+                    color: #3FB859;
+
+                }
+
+                button {
+                    img {
+                        display: block;
+                    }
+                    margin: auto;
+                }
+            }
+
+            .form-submit {
+                display: flex;
+                align-items: flex-end;
+
+                button {
+                    width: 130px !important;
+                    background-color: #3FB859;
+                }
+            }
+        }
+
+    }
+
+}
+
+.dashboard-info {
+    position: absolute;
+
+    display: block;
+
+    height: 45px;
+    width: 100%;
+    top: 0%;
+    left: 0%;
+
+    .dashboard-info__text {
+        grid-row-start: 1/1;
+
+        color: #ffffff;
+        font-weight: bold;
+        text-align: center;
+        font-size: 15rem;
+        overflow: hidden;
+        width: 100%;
+        height: 85%;
+        background-color: #ff7b00;
+        border-radius: 0;
+
+    }
+
+
+
+    .dashboard-info__status {
+        width: 100%;
+        height: 15%;
+        overflow: hidden;
+        grid-row-start: 2/2;
+        background-color: #ff7b00;
+        border-radius: 0 0 10px 10px;
+        animation-name: animateLoading;
+        animation-duration: 3s;
+    }
+
+    @keyframes animateLoading {
+        from {width: 0%;}
+        to {width: 100%;}
+    }
+
+}
+

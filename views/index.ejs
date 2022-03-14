@@ -6,7 +6,7 @@
         <title>Arduino Dashboard</title>
         <meta name="description" content="Dashboard für Arduino API">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="./source/css/styles.css">
+        <link rel="stylesheet" href="/css/styles.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -107,7 +107,7 @@
             </div>
 
             <div class="new-arduino-menu__body">
-                <form method="POST" action="/dashboard/newarduino" >
+                <form class="new-arduino-menu__forms" method="POST" action="api/?newarduino=name">
                     <div class="form-element form-name">
                         <label for="name">Name</label>
                         <input name="name" class="name" type="text" required>
@@ -120,7 +120,7 @@
                                 <p>Token</p>
                             </button>
                             <button>
-                                <img src="./source/img/copy.png" alt="copy" height="15px" width="15px">
+                                <img src="/img/copy.png" alt="copy" height="15px" width="15px">
                             </button>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
 
             <div class="dashboard-info__text">
                 <p>
-                    Verbindung zur API konnte nicht hergestellt werden
+                    Connection to API-Endpoint failed
                 </p>
             </div>
 
@@ -150,6 +150,6 @@
 
         </div>
 
-        <script src="./source/script/index.js" async defer></script>
+        <script src="/script/index.js" async defer></script>
     </body>
 </html>

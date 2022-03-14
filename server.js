@@ -6,13 +6,11 @@ const { red } = require("color-name");
 const port = 3000; 
 const server = express();
 
-//Die View-Enginge für den Node.js Server bestimmen
 server.set("view engine", "ejs");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 server.use(express.static(__dirname + '/source'));
-
 
 /*
     HTTPRequest und HTTPResponse sind Objekte, die jegliche Eigenschaften zu den HTTP Responses und Requests speichern.
@@ -24,23 +22,32 @@ server.use(express.static(__dirname + '/source'));
     httprequest.headers = Jegliche Eigenschaften, die im Header des HTTP-Requests mitgesendet wurden
 */
 
+server.post("/login", urlencodedParser, (httprequest, httpresponse) => {
+    const input = {username: httprequest.body.username.trim(), password: httprequest.body.password.trim()}
 
+    if (input.username === "admin" && input.password === "password") {
+        httpresponse.render("index");
+    } else {
+        httpresponse.render("login", {message: 'Username oder Passwort ist falsch'});
+    }
+}); 
+
+server.post("/api", (req, res) => {
+    if (req.query.newarduino != undefined && req.query.newarduino != null) {
+        console.log(req.query.newarduino)
+    }
+    
+});
 
 server.get("/", (req, res) => {
-    res.render("index.ejs")
+    if (res.query.admin == auth) {
+        res.render("index.ejs")
+    }
 });
 
 server.get("/login", (req, res) => {
-    res.render("login.ejs")
+    res.render("login.ejs", {message: ''})
 });
-
-server.use((req, res) => {
-    res.render("index.ejs")
-});
-
-server.post("/login", urlencodedParser, (httprequest, httpresponse) => {
-    console.log(httprequest.body.username)
-}); 
 
 server.get("/dashboard/download", (httprequest, httpresponse) => {
     httpresponse.download("./test.txt");
@@ -49,6 +56,7 @@ server.get("/dashboard/download", (httprequest, httpresponse) => {
 //Definieren auf welchem Port der Server Daten empfangen kann
 //Damit wir wissen, wann der Server gestartet ist, triggern wir eine Callback Funktion, welche uns bescheid gibt, dass der Server gestartet ist
 
+
 server.listen(port, () => {
-    console.log("Server läuft");
+    console.log("Node.js Server is running on Port " + port);
 });
