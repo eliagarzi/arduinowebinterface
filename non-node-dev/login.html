@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Arduino Login</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./source/css/login-styles.css">
+    </head>
+    <body>
+
+        <div class="login-menu">
+
+            <form method="POST" action="127.0.0.1:3000/login">
+                
+                <div class="form-element form-header">
+                    <h1>Login</h1>
+                </div>
+
+                <div class="form-element">
+                    <label class="form-element__label">Username</label>
+                    <input class="form-element__input" type="text" required>
+                </div>
+                
+                <div class="form-element">
+                    <label class="form-element__label">Password</label>
+                    <input class="form-element__input" type="text" required >
+                </div>
+
+                <div class="form-element form-element-submit">
+                    <button class="form-element__submit-button">Login</button>
+                </div>
+
+            </form>
+
+        </div>
+        
+        <script src="" async defer></script>
+    </body>
+</html>
