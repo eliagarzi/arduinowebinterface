@@ -44,8 +44,6 @@ server.get("/", (req, res) => {
     res.render("index");
 });
 
-
-
 server.get("/login", (req, res) => {
     res.render("login.ejs", {message: ''})
 });
