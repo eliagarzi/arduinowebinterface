@@ -1,3 +1,23 @@
+:root {
+    --root-font-size: 1px;
+
+    //Body-Background
+    --body-background-color: hsl(225, 39%, 12%);
+
+    //Text
+    --primary-text-color: hsl(0, 0%, 100%);
+    --secondary-text-color: hsl(0, 0%, 60%);
+
+    //Element Background
+    --element-background-color: hsl(224, 46%, 17%);
+    --element-background-color-shadow: hsl(210, 42%, 17%);
+
+    //Button
+    --button-color-green: hsl(140, 49%, 48%);
+    --button-color-green-hover: hsl(100, 49%, 48%);
+   
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,14 +26,15 @@
 }
 
 button {
-    background: none;
 	border: none;
 	padding: 0;
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
 
-    color: white;
+    background-color: --button-color-green;
+
+    color: --primary-text-color;
     font-size: 15rem;
     height: 28px;
     width: 55px;
@@ -21,17 +42,16 @@ button {
 }
 
 html, body {
-    font-size: 1px;
+    font-size: --root-font-size;
     width: 100%;
     height: 100%;
 }
 
 body {
-    
     display: grid;
     grid-template-rows: 12% 88%; //Grösse Header und grösse Overview
 
-    background-color: #13192b;
+    background-color: --body-background-color;
 }
 
 header {
@@ -54,11 +74,11 @@ header {
 
     .header-element__new-arduino-button {
         width: 100px !important;
-        background-color: #3FB859;
+        background-color: --button-color-green;
 
         &:hover {
             transition: all 100ms;
-            background-color: #4ea160;
+            background-color: --button-color-green-hover;
         }
     }
 }
@@ -83,15 +103,14 @@ header {
         width: 100px;
         height: 100px;
         border-radius: 10%;
-        background-color: #182341;
+        background-color: --element-background-color;
         box-shadow: 5px 1px 24px -5px rgba(0,0,0,0.75);
 
-        
-        color: white;
+        color: --primary-text-color;
 
         .overview-header__element--title {
             font-size: 11rem;
-            color: #919191;
+            color: 
         }
 
         .overview-header__element--value {
@@ -101,26 +120,24 @@ header {
 
         .overview-header__element--trend {
             font-size: 11rem;
-            color: #3FB859;
+            color: hsl(133, 49%, 48%);
         }
 
         &:hover {
             transition: all 500ms;
             background-color: #373e55;
-            box-shadow: 5px 1px 24px -5px rgba(0,0,0,0.9);
+            box-shadow: 5px 1px 24px -5px hsla(0, 0%, 0%, 0.9);
         }
     }
-
-
 }
 
 .arduino-table {
     grid: 2/1;
 
-    background-color: #182341;
+    background-color: hsl(224, 46%, 17%);
     width: 900px;
     height: 400px;
-    box-shadow: 5px 1px 24px -5px rgba(0,0,0,0.75);
+    box-shadow: 5px 1px 24px -5px hsla(0, 0%, 0%, 0.75);
     border-radius: 10px;
 
     table {
@@ -129,7 +146,7 @@ header {
         width: 100%;
 
         tr:nth-child(odd) {
-            background-color: #233658;
+            background-color: hsl(218, 43%, 24%);
         }
 
         tr {    
@@ -150,13 +167,9 @@ header {
             td {
                 font-size: 12rem;
             }
-
         }
-
     }
-
 }
-
 
 .arduino-elements {
     width: 250px;
@@ -165,8 +178,7 @@ header {
     display: flex;
     flex-flow: column;
 
-    box-shadow: 5px 1px 24px -5px rgba(0,0,0,0.75);
-
+    box-shadow: 5px 1px 24px -5px hsla(0, 0%, 0%, 0.75);
 
     p {
         font-size: 20rem;
@@ -178,7 +190,7 @@ header {
 
         padding: 3%;
 
-        background-color: #182341;
+        background-color: hsl(224, 46%, 17%);
 
         display: flex;
         flex-flow: row;
@@ -187,14 +199,9 @@ header {
 
         border-radius: 15px 15px 0 0;
 
-        .arduino-element--header-element-button {
-            
-        }
-
         .arduino-element--header-element-button-delete {
-            background-color: #eb3434;
+            background-color: hsl(0, 82%, 56%);
         }
-
     }
 
     .arduino-element--body {
@@ -203,7 +210,7 @@ header {
 
         padding: 3%;
 
-        background-color: #182341;
+        background-color: hsl(224, 46%, 17%);
 
         border-radius: 0 0 15px 15px;
     }    
@@ -217,12 +224,12 @@ header {
     display: none;
     width: 100%;
     height: 100%;
-    background-color: rgba(43, 43, 43, 0.411);
+    background-color: hsla(0, 0%, 17%, 0.411);
     backdrop-filter: blur(200px);
 }
 
 .new-arduino-menu {
-    background-color: #ffffff;
+    background-color: hsl(0, 0%, 100%);
     position: absolute;
     display: none;
     width: 350px;
@@ -258,13 +265,12 @@ header {
 
                 label {
                     font-size: 15rem;
-                    color: #5f5f5f;
+                    color: hsl(0, 0%, 37%);
                 }
 
                 input {
                     height: 30px;
                 }
-
             }
 
             .form-token {
@@ -273,7 +279,7 @@ header {
 
                 p {
                     font-size: 20rem;
-                    color: #3FB859;
+                    color: hsl(133, 49%, 48%);
 
                 }
 
@@ -291,13 +297,11 @@ header {
 
                 button {
                     width: 130px !important;
-                    background-color: #3FB859;
+                    background-color: hsl(133, 49%, 48%);
                 }
             }
         }
-
     }
-
 }
 
 .dashboard-info {
@@ -319,17 +323,17 @@ header {
         font-size: 15rem;
         overflow: hidden;
         width: 100%;
-        height: 90%;
+        height: 85%;
         background-color: #ff7b00;
         border-radius: 0;
     }
 
     .dashboard-info__status {
         width: 100%;
-        height: 10%;
+        height: 15%;
         overflow: hidden;
         grid-row-start: 2/2;
-        background-color: #3FB859;
+        background-color: #ff7b00;
         border-radius: 0 0 10px 10px;
         animation-name: animateLoading;
         animation-duration: 3s;
