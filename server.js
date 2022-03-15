@@ -39,11 +39,12 @@ server.post("/api", (req, res) => {
     
 });
 
+
 server.get("/", (req, res) => {
-    if (res.query.admin == auth) {
-        res.render("index.ejs")
-    }
+    res.render("index");
 });
+
+
 
 server.get("/login", (req, res) => {
     res.render("login.ejs", {message: ''})
