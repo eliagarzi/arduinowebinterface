@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="form-element">
-                    <label class="form-element__label">Username</label>
+                    <label class="form-element__label">E-Mail Adresse</label>
                     <input name="username" class="form-element__input form-element__input--username" type="text" required>
                 </div>
                 
@@ -28,15 +28,15 @@
                     <input name="password" class="form-element__input form-element__input--password" type="password" required >
                 </div>
 
-                <% if(message != undefined) { %> 
-                <div class="form-element form-element-message">
-                    <p><% if(message != undefined) { %>
-                        <%= message %> 
-                        <% } %>
-                    </p> 
+                <div class="form-element">
+                    <label class="form-element__label">Password Wiederholen</label>
+                    <input name="password" class="form-element__input form-element__input--password" type="password" required >
                 </div>
-                <% } %> 
-                
+
+                <div class="form-element">
+                    <label class="form-element__label">Google Login</label>
+                    <input name="password" class="form-element__input form-element__input--password" type="password" required >
+                </div>
 
                 <div class="form-element form-element-submit">
                     <button type="submit" class="form-element__submit-button">Login</button>
@@ -46,6 +46,6 @@
 
         </div>
         
-        <script src="" async defer></script>
+        <script src="/script/setup.js" async defer></script>
     </body>
 </html>

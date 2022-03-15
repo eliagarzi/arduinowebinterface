@@ -49,7 +49,6 @@ html, body {
 }
 
 body {
-    
     display: grid;
     grid-template-rows: 12% 88%; //Grösse Header und grösse Overview
 
@@ -131,8 +130,6 @@ header {
             box-shadow: 5px 1px 24px -5px hsla(0, 0%, 0%, 0.9);
         }
     }
-
-
 }
 
 .arduino-table {
@@ -171,11 +168,8 @@ header {
             td {
                 font-size: 12rem;
             }
-
         }
-
     }
-
 }
 
 .arduino-elements {
@@ -186,7 +180,6 @@ header {
     flex-flow: column;
 
     box-shadow: 5px 1px 24px -5px hsla(0, 0%, 0%, 0.75);
-
 
     p {
         font-size: 20rem;
@@ -210,7 +203,6 @@ header {
         .arduino-element--header-element-button-delete {
             background-color: var(--button-color-red);
         }
-
     }
 
     .arduino-element--body {
@@ -278,7 +270,6 @@ header {
                 input {
                     height: 30px;
                 }
-
             }
 
             .form-token {
@@ -308,9 +299,7 @@ header {
                 }
             }
         }
-
     }
-
 }
 
 .dashboard-info {
@@ -335,10 +324,7 @@ header {
         height: 85%;
         background-color: #ff7b00;
         border-radius: 0;
-
     }
-
-
 
     .dashboard-info__status {
         width: 100%;
