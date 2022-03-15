@@ -1,18 +1,21 @@
 :root {
-    
+    --root-font-size: 1px;
+
+    //Body-Background
+    --body-background-color: hsl(225, 39%, 12%);
+
     //Text
     --primary-text-color: hsl(0, 0%, 100%);
-    --secondary-text-color: 
-    
-    //Background
-    --primary-background-color: 
+    --secondary-text-color: hsl(0, 0%, 60%);
 
-    //Background
-    --primary-background-color: 
+    //Element Background
+    --element-background-color: hsl(224, 46%, 17%);
+    --element-background-color-shadow: hsl(210, 42%, 17%);
 
     //Button
-    --button-color-green: hsl(133, 49%, 48%);
-
+    --button-color-green: hsl(140, 49%, 48%);
+    --button-color-green-hover: hsl(100, 49%, 48%);
+   
 }
 
 * {
@@ -29,9 +32,9 @@ button {
 	cursor: pointer;
 	outline: inherit;
 
-    background-color: hsl(133, 49%, 48%);
+    background-color: --button-color-green;
 
-    color: white;
+    color: --primary-text-color;
     font-size: 15rem;
     height: 28px;
     width: 55px;
@@ -39,7 +42,7 @@ button {
 }
 
 html, body {
-    font-size: 1px;
+    font-size: --root-font-size;
     width: 100%;
     height: 100%;
 }
@@ -49,7 +52,7 @@ body {
     display: grid;
     grid-template-rows: 12% 88%; //Grösse Header und grösse Overview
 
-    background-color: #13192b;
+    background-color: --body-background-color;
 }
 
 header {
@@ -72,11 +75,11 @@ header {
 
     .header-element__new-arduino-button {
         width: 100px !important;
-        background-color: #3FB859;
+        background-color: --button-color-green;
 
         &:hover {
             transition: all 100ms;
-            background-color: #4ea160;
+            background-color: --button-color-green-hover;
         }
     }
 }
@@ -101,15 +104,14 @@ header {
         width: 100px;
         height: 100px;
         border-radius: 10%;
-        background-color: #182341;
+        background-color: --element-background-color;
         box-shadow: 5px 1px 24px -5px rgba(0,0,0,0.75);
 
-        
-        color: hsl(0, 0%, 100%);
+        color: --primary-text-color;
 
         .overview-header__element--title {
             font-size: 11rem;
-            color: #919191;
+            color: 
         }
 
         .overview-header__element--value {
