@@ -15,7 +15,6 @@
     //Button
     --button-color-green: hsl(140, 49%, 48%);
     --button-color-green-hover: hsl(100, 49%, 48%);
-    --button-color-red: hsl(0, 49%, 48%);
    
 }
 
@@ -111,7 +110,7 @@ header {
 
         .overview-header__element--title {
             font-size: 11rem;
-            color: var(--secondary-text-color);
+            color: 
         }
 
         .overview-header__element--value {
@@ -121,7 +120,7 @@ header {
 
         .overview-header__element--trend {
             font-size: 11rem;
-            color: var(--button-color-green);
+            color: hsl(133, 49%, 48%);
         }
 
         &:hover {
@@ -201,7 +200,7 @@ header {
         border-radius: 15px 15px 0 0;
 
         .arduino-element--header-element-button-delete {
-            background-color: var(--button-color-red);
+            background-color: hsl(0, 82%, 56%);
         }
     }
 
@@ -215,6 +214,8 @@ header {
 
         border-radius: 0 0 15px 15px;
     }    
+
+
 }
 
 //Hiermit wird der Hintergrund grau, sobald das Menü zum hinzufügen eines neuen Arduino geöffnet wird
@@ -278,7 +279,8 @@ header {
 
                 p {
                     font-size: 20rem;
-                    color: var(--button-color-green);
+                    color: hsl(133, 49%, 48%);
+
                 }
 
                 button {
@@ -295,7 +297,7 @@ header {
 
                 button {
                     width: 130px !important;
-                    background-color: var(--body-background-color);
+                    background-color: hsl(133, 49%, 48%);
                 }
             }
         }
