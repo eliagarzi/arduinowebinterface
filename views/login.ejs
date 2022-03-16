@@ -10,6 +10,10 @@
     </head>
     <body>
 
+        <div class="login-header">
+            <p>Arduino Dashboard</p>
+        </div>
+
         <div class="login-menu">
 
             <form class="login-form form-displayblock" method="POST" action="/login" style="display: block;">
@@ -18,10 +22,6 @@
                     <h1>Login</h1>
                 </div>
 
-                <div class="form-element">
-                    <button type="button" class="form-element__reset-password">Passwort vergessen</button>
-                </div>
-                
                 <div class="form-element form-element__email">
                     <label class="form-element__label">E-Mail</label>
                     <input name="username" class="form-element__input form-element__input--username" type="text">
@@ -32,18 +32,27 @@
                     <input name="password" class="form-element__input form-element__input--password" type="password">
                 </div>
 
-                <% if(message != undefined) { %> 
-                <div class="form-element form-element-message">
-                    <p><% if(message != undefined) { %>
-                        <%= message %> 
-                        <% } %>
-                    </p> 
-                </div>
-                <% } %> 
+                <!--
+
+                    <% if(message != undefined) { %> 
+                        <div class="form-element form-element-message">
+                            <p><% if(message != undefined) { %>
+                                <%= message %> 
+                                <% } %>
+                            </p> 
+                        </div>
+                        <% } %> 
+
+                -->
                 
                 <div class="form-element form-element-submit">
-                    <button type="submit" class="form-element__submit-button">Login</button>
+                    <button type="submit" class="form-element__submit-button form-button">Login</button>
                 </div>
+
+                <div class="form-element">
+                    <button type="button" class="form-element__reset-password">Passwort vergessen</button>
+                </div>
+
             </form>
 
             <form class="password-reset-form form-displaynone" method="POST" action="/login/reset" style="display: none;">
@@ -52,19 +61,19 @@
                     <h1>Passwort vergessen</h1>
                 </div>
 
-                <div class="form-element">
-                    <button type="Button" class="form-element__backtologin-button">Zurück zum Login</button>
-                </div>
-                
                 <div class="form-element form-element__email">
                     <label class="form-element__label">E-Mail</label>
                     <input name="username" class="form-element__input form-element__input--username" type="text">
                 </div>
                 
                 <div class="form-element form-element-submit">
-                    <button type="submit" class="form-element__submit-button">Passwort zurücksetzen</button>
+                    <button type="submit" class="form-element__submit-button form-button">Passwort zurücksetzen</button>
                 </div>
 
+                <div class="form-element">
+                    <button type="Button" class="form-element__backtologin-button">Login</button>
+                </div>
+                
             </form>
 
         </div>

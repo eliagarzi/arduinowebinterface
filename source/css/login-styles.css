@@ -1,3 +1,9 @@
+:root {
+  --primary-text-color: #ffffff;
+  --secondary-text-color: #989898;
+  --root-font-size: 13px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -13,24 +19,35 @@ button {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+}
+
+.form-button {
+  background-color: #306ECA;
   color: white;
-  font-size: 1rem;
-  height: 28px;
-  width: 55px;
-  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1.8rem;
+  border-radius: 0.6rem;
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 4.8rem;
+  width: 26.8rem;
 }
 
 html, body {
-  font-size: 20px;
+  font-size: var(--root-font-size);
   width: 100%;
   height: 100%;
 }
 
 body {
-  background-color: #13192b;
+  background-color: #2D3D5C;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -39,14 +56,34 @@ body {
           justify-content: center;
 }
 
+.login-header {
+  font-size: 3.6rem;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.password-reset-form {
+  height: 20rem !important;
+}
+
 .login-menu {
-  color: #383838;
   background-color: #ffffff;
-  width: 320px;
-  height: 320px;
-  border-radius: 5px;
-  -webkit-box-shadow: 5px 1px 24px -5px rgba(56, 53, 53, 0.74);
-          box-shadow: 5px 1px 24px -5px rgba(56, 53, 53, 0.74);
+  width: 35.2rem;
+  height: 39.2rem;
+  -webkit-box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.4);
+          box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.4);
+  border-radius: 1.1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .login-menu form {
@@ -57,53 +94,77 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-flow: column;
           flex-flow: column;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .login-menu form .form-header {
-  margin: 0 !important;
-  padding: 0;
-  background-color: #2c3c6b;
-  color: white;
+  font-size: 1.2rem;
+  padding-top: 2.5rem;
+  color: black;
 }
 
 .login-menu form .form-element {
-  padding: 3%;
-  margin: 8px 0;
-  height: auto;
-  height: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-flow: column;
           flex-flow: column;
+  margin: 2.2rem 0px;
 }
 
 .login-menu form .form-element .form-element__label {
+  color: black;
+  font-size: 1.3rem;
   font-weight: bold;
 }
 
 .login-menu form .form-element .form-element__input {
-  padding: 5px;
-  height: 35px;
-  border: 2px solid #2c3c6b;
+  background-color: #E7E7E7;
+  padding: 0.5rem;
+  width: 26.8rem;
+  height: 4.8rem;
+  border: none;
+  border-radius: 0.2rem;
 }
 
 .login-menu form .form-element .form-element__input:focus {
-  background-color: #dadadaa4;
+  font-size: 2rem;
+  border-bottom: 0.2rem solid #306ECA;
+  background-color: rgba(185, 185, 185, 0.643);
+  outline: none;
 }
 
-.login-menu form .form-element .form-element-submit {
-  background-color: red;
+.login-menu form .form-element:last-child {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.login-menu form .form-element__submit-button {
-  width: 100px !important;
-  background-color: #3FB859;
+.login-menu form .form-element__reset-password {
+  width: 12rem;
+  color: #989898;
+  font-size: 1.3rem;
+}
+
+.login-menu form .form-element__reset-password:hover {
+  color: #306ECA;
+}
+
+.login-menu form .form-element__backtologin-button {
+  width: 12rem;
+  color: #989898;
+  font-size: 1.3rem;
+}
+
+.login-menu form .form-element__backtologin-button:hover {
+  color: #306ECA;
 }
 
 @media only screen and (max-width: 400px) {

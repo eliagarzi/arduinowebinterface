@@ -1,3 +1,9 @@
+:root {
+    --primary-text-color: #ffffff;
+    --secondary-text-color: #989898;
+    --root-font-size: 13px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -12,88 +18,122 @@ button {
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+}
 
+.form-button {
+    background-color: #306ECA;
     color: white;
-    font-size: 1rem;
-    height: 28px;
-    width: 55px;
-    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1.8rem;
+    border-radius: 0.6rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 4.8rem;
+    width:  26.8rem;
+
 }
 
 html, body {
-    font-size: 20px;
+    font-size: var(--root-font-size);
     width: 100%;
     height: 100%;
     
 }
 
 body {
-    background-color: #13192b;
+    background-color: #2D3D5C;
     display: flex;
+    flex-flow: column;
     align-items: center;
     justify-content: center;
 }
 
+.login-header {
+    font-size: 3.6rem;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.password-reset-form {
+    height: 20rem !important;
+}
+
 .login-menu {
-    
-    color: rgb(56, 56, 56);
     background-color: #ffffff;
-    width: 320px;
-    height: 320px;
-    border-radius: 5px;
-    box-shadow: 5px 1px 24px -5px rgba(56, 53, 53, 0.74);
+    width: 35.2rem;
+    height: 39.2rem;
+   
+    box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.4);
+    border-radius: 1.1rem;
+
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 
     form {
-
         display: flex;
         flex-flow: column;
-        justify-content: flex-start;
+        align-items: center;
 
         .form-header {
-            margin: 0 !important;
-            padding: 0;
-            background-color: #2c3c6b;
-            color: white;
+            font-size: 1.2rem;
+            padding-top: 2.5rem;
+            color: rgb(0, 0, 0);
         }
 
         .form-element {
-            padding: 3%;
-            margin: 8px 0;
-            height: auto;
-            height: auto;
-
             display: flex;
+            justify-content: center;
             flex-flow: column;
+            margin: 2.2rem 0px;
 
             .form-element__label {
+                color: rgb(0, 0, 0);
+                font-size: 1.3rem;
                 font-weight: bold;
             }
 
             .form-element__input {
-                padding: 5px;
-                height: 35px;
-                border: 2px solid #2c3c6b;
+                background-color: #E7E7E7;
+                padding: 0.5rem;
+                width: 26.8rem;
+                height: 4.8rem;
+                border: none;
+                border-radius: 0.2rem;
                 
-
                 &:focus {
-                    background-color: #dadadaa4;
+                    font-size: 2rem;
+                    border-bottom: 0.2rem solid #306ECA;
+                    background-color: rgba(185, 185, 185, 0.643);
+                    outline: none;
                 }
             }
 
-            .form-element-submit {
-                background-color: red;
+            &:last-child {
+                align-items: center;
             }
-
         }
 
-        .form-element__submit-button {
-            width: 100px !important;
-            background-color: #3FB859;
+        .form-element__reset-password {
+            width: 12rem;
+            color: #989898;
+            font-size: 1.3rem;
+
+            &:hover {
+                color: #306ECA;
+            }
         }
 
+        .form-element__backtologin-button {
+            width: 12rem;
+            color: #989898;
+            font-size: 1.3rem;
 
+            &:hover {
+                color: #306ECA;
+            }
+        }
     }
-
 }
 
 @media only screen and (max-width: 400px) {
@@ -102,3 +142,4 @@ body {
         width: 100%;
     }
 }
+

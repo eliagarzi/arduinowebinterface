@@ -27,5 +27,3 @@ arduinoForms.addEventListener("submit", (e) => {
 })
 
 
-
-
