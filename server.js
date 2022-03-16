@@ -43,7 +43,7 @@ server.get("/", (req, res) => {
 });
 
 server.get("/login", (req, res) => {
-    res.render("login.ejs", {message: ''})
+    res.render("login", {message: ''})
 });
 
 server.get("/dashboard/download", (httprequest, httpresponse) => {

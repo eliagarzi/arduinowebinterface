@@ -18,6 +18,8 @@ setupForms.addEventListener("submit", (e) => {
 
     if (email === "" || !email.search(/@/gi)) {
         
+        //Email leer oder keine richtige Email
+
     }
 
     e.preventDefault();
