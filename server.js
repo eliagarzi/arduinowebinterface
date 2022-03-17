@@ -4,12 +4,17 @@ const bodyParser = require("body-parser"); //Middleware, um das Body objekt im H
 const { red } = require("color-name");
 
 const port = 3000; 
+
+//Eine neue Instanz des Express Objekt erstellen
 const server = express();
 
+//Die View Engine bestimmen, die Node.js nutzen soll
 server.set("view engine", "ejs");
 
+//Body Parser Middleware um auf Elemente im Body des HTTP Requests zuzugreifen
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+//Bestimmen wo Node für das rendern von EJS-Files statische files ziehen kann
 server.use(express.static(__dirname + '/source'));
 
 /*
@@ -22,23 +27,40 @@ server.use(express.static(__dirname + '/source'));
     httprequest.headers = Jegliche Eigenschaften, die im Header des HTTP-Requests mitgesendet wurden
 */
 
+//Dies ist der Event-Handler falls sich jemand versucht einzulogen
 server.post("/login", urlencodedParser, (httprequest, httpresponse) => {
-    const input = {username: httprequest.body.username.trim(), password: httprequest.body.password.trim()}
+    const input = {username: httprequest.body.loginemail, password: httprequest.body.loginpassword}
 
-    if (input.username === "admin" && input.password === "password") {
+    if (input.username === "admin@local.com" && input.password === "password") {
         httpresponse.render("index");
     } else {
         httpresponse.render("login", {message: 'Username oder Passwort ist falsch'});
     }
 }); 
 
-server.post("/api", (req, res) => {
-    if (req.query.newarduino != undefined && req.query.newarduino != null) {
-        console.log(req.query.newarduino)
+server.post("/reset", urlencodedParser, (httprequest, httpresponse) => {
+    const input = {username: httprequest.body.passwordresetemail}
+
+    //Send Email
+
+    if (input.username === "admin@local.com" && input.password === "password") {
+        httpresponse.render("index");
+    } else {
+        httpresponse.render("login", {message: 'Username oder Passwort ist falsch'});
     }
 });
 
+server.post("/api", (httprequest, httpresponse) => {
+    if (req.query.newarduino != undefined && req.query.newarduino != null) {
+        console.log(httpresponse.query.newarduino)
+    }
+});
+
+//Falls jemand nur die 
 server.get("/", (req, res) => {
+
+    //Check Session Auth
+
     res.render("index");
 });
 
@@ -50,13 +72,6 @@ server.get("/dashboard/download", (httprequest, httpresponse) => {
     httpresponse.download("./test.txt");
 }); 
 
-//Definieren auf welchem Port der Server Daten empfangen kann
-//Damit wir wissen, wann der Server gestartet ist, triggern wir eine Callback Funktion, welche uns bescheid gibt, dass der Server gestartet ist
-
-server.listen(port, () => {
-    console.log(`Node.js Server is running on Port ${port}`);
-});
-
 server.get("/api", (req, res) => {
     const json = [
         {data: "Spöng"},
@@ -66,4 +81,10 @@ server.get("/api", (req, res) => {
 
     res.setHeader("Content-type", "application/json");
     res.send(json).status(200);
+});
+
+//Definieren auf welchem Port der Server Daten empfangen kann
+//Damit wir wissen, wann der Server gestartet ist, triggern wir eine Callback Funktion, welche uns bescheid gibt, dass der Server gestartet ist
+server.listen(port, () => {
+    console.log(`Node.js Server is running on Port ${port}`);
 });

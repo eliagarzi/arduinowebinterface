@@ -6,13 +6,17 @@
         <title>Arduino Login</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/css/login-styles.css">
+        <link rel="stylesheet" href="../source/css/login-setup-styles.css">
     </head>
     <body>
 
+        <div class="login-header">
+            <p>Arduino Dashboard</p>
+        </div>
+
         <div class="setup-menu">
 
-            <form class="setup-form" method="POST" action="/login">
+            <form class="setup-form" method="POST" action="/setup">
                 
                 <div class="form-element form-header">
                     <h1>Setup</h1>
@@ -33,13 +37,8 @@
                     <input name="password" class="form-element__input form-element__input--password" type="password" required >
                 </div>
 
-                <div class="form-element">
-                    <label class="form-element__label">Google Login</label>
-                    <input name="password" class="form-element__input form-element__input--password--repeat" type="password" required >
-                </div>
-
                 <div class="form-element form-element-submit">
-                    <button type="submit" class="form-element__submit-button">Login</button>
+                    <button type="submit" class="form-element__submit-button form-button form-main-button">Registrieren</button>
                 </div>
 
             </form>

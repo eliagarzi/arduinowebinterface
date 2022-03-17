@@ -6,7 +6,7 @@
         <title>Arduino Login</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/css/login-styles.css">
+        <link rel="stylesheet" href="/css/login-setup-styles.css">
     </head>
     <body>
 
@@ -24,38 +24,34 @@
 
                 <div class="form-element form-element__email">
                     <label class="form-element__label">E-Mail</label>
-                    <input name="username" class="form-element__input form-element__input--username" type="text">
+                    <input name="loginemail" class="form-element__input login-form-email" type="text">
                 </div>
                 
                 <div class="form-element form-element__password">
                     <label class="form-element__label">Password</label>
-                    <input name="password" class="form-element__input form-element__input--password" type="password">
+                    <input name="loginpassword" class="form-element__input login-form-password" type="password">
                 </div>
 
-                <!--
+                <% if(message != undefined) { %> 
+                    <div class="form-element form-element-message">
+                        <p><% if(message != undefined) { %>
+                            <%= message %> 
+                            <% } %>
+                        </p> 
+                    </div>
+                <% } %> 
 
-                    <% if(message != undefined) { %> 
-                        <div class="form-element form-element-message">
-                            <p><% if(message != undefined) { %>
-                                <%= message %> 
-                                <% } %>
-                            </p> 
-                        </div>
-                        <% } %> 
-
-                -->
-                
                 <div class="form-element form-element-submit">
                     <button type="submit" class="form-element__submit-button form-button">Login</button>
                 </div>
 
                 <div class="form-element">
-                    <button type="button" class="form-element__reset-password">Passwort vergessen</button>
+                    <button type="button" class="form-element__reset-password form-secondary-button ">Passwort vergessen</button>
                 </div>
 
             </form>
 
-            <form class="password-reset-form form-displaynone" method="POST" action="/login/reset" style="display: none;">
+            <form class="password-reset-form form-displaynone" method="POST" action="/reset" style="display: none;">
                 
                 <div class="form-element form-header">
                     <h1>Passwort vergessen</h1>
@@ -63,7 +59,7 @@
 
                 <div class="form-element form-element__email">
                     <label class="form-element__label">E-Mail</label>
-                    <input name="username" class="form-element__input form-element__input--username" type="text">
+                    <input name="password-reset-form-email" class="form-element__input password-reset-form-email" type="text"> 
                 </div>
                 
                 <div class="form-element form-element-submit">
@@ -71,7 +67,7 @@
                 </div>
 
                 <div class="form-element">
-                    <button type="Button" class="form-element__backtologin-button">Login</button>
+                    <button type="Button" class="form-element__backtologin-button form-secondary-button ">Login</button>
                 </div>
                 
             </form>
