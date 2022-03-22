@@ -107,30 +107,28 @@
             </div>
 
             <div class="new-arduino-menu__body">
-                <form class="new-arduino-menu__forms" method="POST" action="api/?newarduino=name">
+                <form class="new-arduino-menu__forms" method="POST">
                     <div class="form-element form-name">
                         <label for="name">Name</label>
-                        <input name="name" class="name" type="text" required>
+                        <input name="name" class="new-arduino-menu__forms-name" type="text" required>
                     </div>
 
                     <div class="form-element form-token">
                         <label>Access Token</label>
                         <div class="form-token-copy-token">
-                            <button>
+                            <button type="button">
                                 <p>Token</p>
-                            </button>
-                            <button>
                                 <img src="/img/copy.png" alt="copy" height="15px" width="15px">
                             </button>
                         </div>
                     </div>
 
                     <div class="form-element form-config-download">
-                        <p href="/dashboard/download">Config herunterladen</p>
+                        <button class="new-arduino-menu__forms--downloadconfig" type="button">Config herunterladen</p>
                     </div>
 
                     <div class="form-element form-submit">
-                        <button class="new-arduino-submit-button" type="submit">Arduino Erstellen</button>
+                        <button class="new-arduino-menu__forms--submitform" type="submit">Arduino Erstellen</button>
                     </div>
                     
                 </form>

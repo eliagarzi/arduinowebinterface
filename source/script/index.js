@@ -6,24 +6,93 @@ const newArduinoMenuBlur = document.querySelector(".new-arduino-menu--blur");
 newArdunioButton.addEventListener("click", function(){
     newArduinoMenuBlur.style.display = "block"
     newArduinoMenu.style.display = "block";
-})
+});
 
 
 //Wenn ausserhalb des Menüs gedrückt wird, wird das Fenster geschlossen
 newArduinoMenuBlur.addEventListener("click", function() {
     newArduinoMenuBlur.style.display = "none"
     newArduinoMenu.style.display = "none";
-})
+});
 
-const arduinoFormsSubmitButton = document.querySelector(".new-arduino-submit-button");
-const arduinoForms = document.querySelector(".new-arduino-menu__forms");
+const newArduinoForm = document.querySelector(".new-arduino-menu__forms");
+const newArduinoFormDownloadButton = document.querySelector(".new-arduino-menu__forms--downloadconfig");
+const newArduinoFormName = document.querySelector(".new-arduino-menu__forms-name");
 
-arduinoForms.addEventListener("submit", (e) => {
+newArduinoForm.addEventListener("click", (e) => {
 
-    //Fetch request to api 
+    /*
+
+    searchpattern = abhängig von der DB
+
+    */
+
+    if (newArduinoFormName === "" || newArduinoFormName.value.search(/searchpattern/gi)) {
+
+        e.preventDefault();
+    } else {
+        async() => {
+            fetch("api/newardunio");
+        }
+    }
+});
+
+function buildWebstreamConnection() {
+ 
+}
+
+const arduinoTable = document.querySelector(".arduino-table");
+
+function renderWebstreamContent() {
+
+    //Build Websocket Stream
+    //Parse String into JSON
+
+    const ardunioObj = JSON.parse('{"name": "ardunio1","temp": 22,"token": "JWT24BA"}');
+
+    const arrayOfArdunioObj = [""];
+
+    for(let i = 0; i < arrayOfArdunioObj.length; i++) {
+        
+        //New Table Row Element 
+        //for each Element in JSON a th tag 
+        let tableRow = document.createElement("tr");
+        
+        for (element in ardunioObj) {
+            let tableRowData = document.createElement("td");
+            tableRowData.textContent = ardunioObj[element];
+            tableRow.appendChild(tableRowData);
+        } 
+
+    }
+}
+
+function checkAPIConnection() {
+    async() => {
+        let status = 0
+        return status;
+    }
+}
+
+function getAPIConnection() {
+
+}
+
+function displayAPIConnection() {
+
+    if (checkAPIConnection) {
+
+    }
+
+}
+
+document.addEventListener("load", () => {
+    displayAPIConnection();
+    renderWebstreamContent();
+});
 
 
-    e.preventDefault();
-})
+
+
 
 

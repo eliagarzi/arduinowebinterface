@@ -5,7 +5,8 @@ const sqllite = require("sqlite3");
     Erstellen eines JavaScript Objektes, welche unsere SQLite Datenbank repräsentiert
     Falls ein Fehler auftritt wird dieser als Error-Objekt "err" an die Callback Funktion weitergegeben
 */
-const db = new sqllite.Database("arduino.db", (err) => {  
+
+let db = new sqllite.Database("arduino.db", (err) => {  
     if (err) {
         return console.error(err.message);
     } else {
@@ -17,9 +18,27 @@ const db = new sqllite.Database("arduino.db", (err) => {
     Überprüfen ob Table exisitert -> Wenn nicht -> Eine erstellen 
 */
 
-db.run('CREATE TABLE');
+db.run('CREATE TABLE USERS');
 
+db.run(`INSERT INTO USERS VALUES 123`, function(err) {
+    if (err) {
+        console.log(`Fehler beim schreiben in die Datenbank ${err}`)
+    } 
+    else {
+        console.log(`Erfolgreich in die Datenbank gespeichert`)
+    }
+});
 
+let sql = `SELECT * FROM USERS`;
+
+db.all(sql,(err, rows ) => {
+    if (err) {
+        throw err;
+      }
+      rows.forEach((row) => {
+        console.log(row.name);
+      });
+});
 
 /*
     Datenbank schliessen -> Best Practice
@@ -34,4 +53,3 @@ db.close((err) => {
     }
 }); 
 
-module.exports.dbclose = db.close;

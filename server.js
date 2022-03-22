@@ -60,7 +60,6 @@ server.post("/api", (httprequest, httpresponse) => {
 server.get("/", (req, res) => {
 
     //Check Session Auth
-
     res.render("index");
 });
 
@@ -73,12 +72,6 @@ server.get("/dashboard/download", (httprequest, httpresponse) => {
 }); 
 
 server.get("/api", (req, res) => {
-    const json = [
-        {data: "Spöng"},
-        {data1: "Sping"},
-        {spung: "Gurke"}
-    ]
-
     res.setHeader("Content-type", "application/json");
     res.send(json).status(200);
 });
