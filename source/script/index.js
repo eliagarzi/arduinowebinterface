@@ -1,3 +1,5 @@
+
+
 const newArdunioButton = document.querySelector(".header-element__new-arduino-button");
 const newArduinoMenu = document.querySelector(".new-arduino-menu");
 const newArduinoMenuBlur = document.querySelector(".new-arduino-menu--blur");
@@ -31,15 +33,10 @@ newArduinoForm.addEventListener("click", (e) => {
 
         e.preventDefault();
     } else {
-        async() => {
-            fetch("api/newardunio");
-        }
     }
 });
 
-function buildWebstreamConnection() {
- 
-}
+
 
 const arduinoTable = document.querySelector(".arduino-table");
 
@@ -68,27 +65,19 @@ function renderWebstreamContent() {
 }
 
 function checkAPIConnection() {
-    async() => {
-        let status = 0
-        return status;
-    }
+    fetch("http://127.0.0.1:3000/ap")
+    .then(response => {
+        if (response.ok) {
+            console.log("Looks Good");
+        } else {
+            throw new Error("Error")
+        }
+    })
+    .catch((err, response) => { console.log("Problem " + response.status)})
 }
 
-function getAPIConnection() {
-
-}
-
-function displayAPIConnection() {
-
-    if (checkAPIConnection) {
-
-    }
-
-}
-
-document.addEventListener("load", () => {
-    displayAPIConnection();
-    renderWebstreamContent();
+window.addEventListener("load", () => {
+    checkAPIConnection();
 });
 
 

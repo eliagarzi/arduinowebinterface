@@ -50,18 +50,14 @@ server.post("/reset", urlencodedParser, (httprequest, httpresponse) => {
     }
 });
 
-server.post("/api", (httprequest, httpresponse) => {
-    if (req.query.newarduino != undefined && req.query.newarduino != null) {
-        console.log(httpresponse.query.newarduino)
-    }
+server.get("/api", (httprequest, httpresponse) => {
+    httpresponse.sendStatus(200);
 });
 
-//Falls jemand nur die 
-server.get("/", (req, res) => {
-
-    //Check Session Auth
-    res.render("index");
+server.get("/index", (httprequest, httpresponse) => {
+    httpresponse.render("index");
 });
+
 
 server.get("/login", (req, res) => {
     res.render("login", {message: ''})
@@ -71,10 +67,6 @@ server.get("/dashboard/download", (httprequest, httpresponse) => {
     httpresponse.download("./test.txt");
 }); 
 
-server.get("/api", (req, res) => {
-    res.setHeader("Content-type", "application/json");
-    res.send(json).status(200);
-});
 
 //Definieren auf welchem Port der Server Daten empfangen kann
 //Damit wir wissen, wann der Server gestartet ist, triggern wir eine Callback Funktion, welche uns bescheid gibt, dass der Server gestartet ist
