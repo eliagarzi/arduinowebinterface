@@ -1,7 +1,5 @@
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser"); //Middleware, um das Body objekt im HTTP Request zu abstrahieren
-const { red } = require("color-name");
+import express from "express";
+import bodyParser from "body-parser" //Middleware, um das Body objekt im HTTP Request zu abstrahieren
 
 const port = 3000; 
 
