@@ -1,5 +1,3 @@
-
-
 const newArdunioButton = document.querySelector(".header-element__new-arduino-button");
 const newArduinoMenu = document.querySelector(".new-arduino-menu");
 const newArduinoMenuBlur = document.querySelector(".new-arduino-menu--blur");
@@ -9,7 +7,6 @@ newArdunioButton.addEventListener("click", function(){
     newArduinoMenuBlur.style.display = "block"
     newArduinoMenu.style.display = "block";
 });
-
 
 //Wenn ausserhalb des Menüs gedrückt wird, wird das Fenster geschlossen
 newArduinoMenuBlur.addEventListener("click", function() {
@@ -24,19 +21,17 @@ const newArduinoFormName = document.querySelector(".new-arduino-menu__forms-name
 newArduinoForm.addEventListener("click", (e) => {
 
     /*
-
     searchpattern = abhängig von der DB
-
     */
 
     if (newArduinoFormName === "" || newArduinoFormName.value.search(/searchpattern/gi)) {
+
+
 
         e.preventDefault();
     } else {
     }
 });
-
-
 
 const arduinoTable = document.querySelector(".arduino-table");
 
@@ -64,24 +59,25 @@ function renderWebstreamContent() {
     }
 }
 
-function checkAPIConnection() {
-    fetch("http://127.0.0.1:3000/ap")
-    .then(response => {
+function renderAPIStatus(httpstatus) {
+    
+}
+
+let apiStatus = async () => {
+    try {
+        const response = await fetch("http://127.0.0.1:3000/api");
         if (response.ok) {
-            console.log("Looks Good");
+            const data = await response.json();
+            renderAPIStatus(data)
         } else {
-            throw new Error("Error")
+            console.log(response.status)
+            throw new Error("Error");
         }
-    })
-    .catch((err, response) => { console.log("Problem " + response.status)})
+    } catch (error) {
+        console.log("Fehler bei der Verbindung mit der API " + error)
+    }
 }
 
 window.addEventListener("load", () => {
-    checkAPIConnection();
+    apiStatus();
 });
-
-
-
-
-
-
