@@ -35,49 +35,45 @@ newArduinoForm.addEventListener("click", (e) => {
 
 const arduinoTable = document.querySelector(".arduino-table");
 
-function renderWebstreamContent() {
-
-    //Build Websocket Stream
-    //Parse String into JSON
-
-    const ardunioObj = JSON.parse('{"name": "ardunio1","temp": 22,"token": "JWT24BA"}');
-
-    const arrayOfArdunioObj = [""];
-
-    for(let i = 0; i < arrayOfArdunioObj.length; i++) {
-        
-        //New Table Row Element 
-        //for each Element in JSON a th tag 
-        let tableRow = document.createElement("tr");
-        
-        for (element in ardunioObj) {
-            let tableRowData = document.createElement("td");
-            tableRowData.textContent = ardunioObj[element];
-            tableRow.appendChild(tableRowData);
-        } 
-
-    }
-}
-
-function renderAPIStatus(httpstatus) {
-    
-}
-
-let apiStatus = async () => {
+async function fetchArduinoData(url) {
     try {
-        const response = await fetch("http://127.0.0.1:3000/api");
-        if (response.ok) {
-            const data = await response.json();
-            renderAPIStatus(data)
+        const reponse = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json'
+            }
+        });
+        if (reponse.ok) {
+            const arduinoData = await reponse.json();
+            renderArdunioData(arduinoData);
         } else {
-            console.log(response.status)
-            throw new Error("Error");
+            throw new Error();
         }
     } catch (error) {
-        console.log("Fehler bei der Verbindung mit der API " + error)
-    }
+        console.error(error)
+    }   
+}
+
+function renderArdunioData(arduinoFetchObjects) {
+    const ardtable = document.querySelector(".arduino-table");
+
+    //Für jedes Element das gelifert wird -> Arduino Objekt 
+    arduinoFetchObjects.forEach((arduinoObject) => {
+
+        let tableRow = document.createElement("tr");
+
+        //Loop durch die einzelnen Werte die im Objekt gespeichert sind
+        for(element in arduinoObject) {
+            let tableRowData = document.createElement("td");
+            tableRowData.textContent = arduinoObject[element];
+            ardtable.appendChild(tableRow);
+            tableRow.appendChild(tableRowData);
+        }
+    });
 }
 
 window.addEventListener("load", () => {
-    apiStatus();
+
+    //Error on initial fetch
+    
 });

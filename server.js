@@ -56,7 +56,6 @@ server.get("/index", (httprequest, httpresponse) => {
     httpresponse.render("index");
 });
 
-
 server.get("/login", (req, res) => {
     res.render("login", {message: ''})
 });
@@ -64,7 +63,6 @@ server.get("/login", (req, res) => {
 server.get("/dashboard/download", (httprequest, httpresponse) => {
     httpresponse.download("./test.txt");
 }); 
-
 
 //Definieren auf welchem Port der Server Daten empfangen kann
 //Damit wir wissen, wann der Server gestartet ist, triggern wir eine Callback Funktion, welche uns bescheid gibt, dass der Server gestartet ist

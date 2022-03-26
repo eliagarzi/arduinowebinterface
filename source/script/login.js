@@ -1,8 +1,36 @@
-const loginMenu = document.querySelector(".login-menu")
+const loginInfo = document.querySelector(".login-info");
+const formElementInfo = document.querySelector(".form-element__info");
+const formElementInfoP = document.querySelector(".form-element__info").childNodes[1];
 
+//Sendet die Informationen fürs Login an das Backend
+async function sendJSONToBackend(url, JSONData, infoDOMobject) {
+    try {
+        const reponse = await fetch(url, {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(JSONData)
+        })
+        return reponse;
+    } catch (error) {
+        console.error(error)
+        infoDOMobject.style.display = "block";
+        formElementInfoP.textContent = `Fehler bei der Übertragung ${error}`;
+    }
+}
+
+//Info-Menü, welches sich öffnet sobald es bei einer Fetch Übetragung einen Fehler gibt
+//inkl. Button, um dieses Menü wieder zu schlissen 
+const closeLoginInfoButton = document.querySelector(".login-info__close-window");
+closeLoginInfoButton.addEventListener("click", () => {
+    loginInfo.style.display = "none";
+});
+
+const loginMenu = document.querySelector(".login-menu")
 const loginForm = document.querySelector(".login-form")
 const passwordResetForm = document.querySelector(".password-reset-form");
-
 const resetPasswordButton = document.querySelector(".form-element__reset-password");
 const backToLoginButton = document.querySelector(".form-element__backtologin-button");
 
@@ -27,33 +55,80 @@ backToLoginButton.addEventListener("click", function() {
 const loginFormEmail = document.querySelector(".login-form-email");
 const loginFormPassword = document.querySelector(".login-form-password");
 
-const passwordResetFormEmail = document.querySelector(".password-reset-form-email");
+loginForm.addEventListener("submit", async (event) => {
+    //Event 
+    event.preventDefault();
 
-loginForm.addEventListener("submit", (e) => {
+    if (loginFormEmail.value.trim() !== "" && !loginFormEmail.value.search(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+        formElementInfo.style.display = "none";
+        loginFormEmail.style.border = "2px solid #3eb666";
 
-    if (loginFormEmail.value.trim() !== "" || loginFormEmail.value.search(/@/gi)) {
-        loginFormEmail.style.border = "2px solid green";
+        if (loginFormPassword.value.trim() !== "") {
+            loginFormPassword.style.border = "2px solid #3eb666";
+            formElementInfo.style.display = "none";
+            sendJSONToBackend("http://127.0.0.1:3000/api/user/login", {email: loginFormEmail.value, password: loginFormPassword.value}, loginInfo)
+            .then((response) => response.json())
+            .then((data) => {
+                formElementInfo.style.display = "block";
+                formElementInfoP.textContent = data.message;
+            });
+
+        } else {
+            loginFormPassword.style.border = "2px solid #f0783d";
+            formElementInfo.style.display = "block";
+            formElementInfoP.textContent = "Password is empty"
+        }
     } else {
-        loginFormEmail.style.border = "2px solid red";
-        e.preventDefault();
-    }
-
-    if (loginFormPassword.value.trim() !== "") {
-        loginFormPassword.style.border = "2px solid green";
-    } else {
-        loginFormPassword.style.border = "2px solid red";
-        e.preventDefault();
+        loginFormEmail.style.border = "2px solid #f0783d";
+        formElementInfo.style.display = "block";
+        formElementInfoP.textContent = "Not an E-Mail"
     }
 });
 
-passwordResetForm.addEventListener("submit", (e) => {
+const showPasswordButton = document.querySelector(".show-password-button");
+const showPasswordButtonImage = document.querySelector(".show-password-button__image");
+const showPasswordButtonText = document.querySelector(".show-password-button__text");
 
-    if (passwordResetFormEmail.value.trim() !== "" || passwordResetFormEmail.value.search(/@/gi)) {
-        
-        passwordResetFormEmail.style.border = "2px solid green";
+let showPasswordToggle = 0;
+
+showPasswordButton.addEventListener("click", function(){
+    if (showPasswordToggle == 0) {
+        loginFormPassword.type = "text";
+        showPasswordButtonImage.src = "/img/login/eye-open.png";
+        showPasswordButtonText.textContent = "hide"
+        showPasswordToggle = 1;
     } else {
-        passwordResetFormEmail.style.border = "2px solid red";
-        e.preventDefault();
+        loginFormPassword.type = "password";
+        showPasswordButtonImage.src = "/img/login/eye-closed.png";
+        showPasswordButtonText.textContent = "show"
+        showPasswordToggle = 0;
     }
+}); 
 
+const resetPasswordForm = document.querySelector(".password-reset-form");
+const resetPasswordFormEmail = document.querySelector(".password-reset-form-email");
+const formElementEmail = document.querySelector(".reset-form-element__email");
+const formElementButton = document.querySelector(".reset-form-element-submit");
+const formElementFinish = document.querySelector(".password-reset-form-finish");
+
+resetPasswordForm.addEventListener("submit", (event) => {
+    const formElementInfo = document.querySelector(".form-element__info");
+    event.preventDefault();
+    if (resetPasswordFormEmail.value !== "" && !resetPasswordFormEmail.value.search(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+        formElementInfoP.style.display = "none";
+        resetPasswordFormEmail.style.border = "2px solid #3eb666";
+
+        sendJSONToBackend("http://127.0.0.1:3000/api/user/reset", {email: resetPasswordFormEmail.value}, loginInfo)
+        .then((response) => response.json())
+        .then((data) => {
+            formElementEmail.style.display = "none";
+            formElementButton.style.display = "none";
+            formElementFinish.style.display = "block";
+            formElementFinish.childNodes[1].textContent = data.message;
+        });
+    
+    } else {
+        formElementInfo.style.display = "block";
+        formElementInfoP.textContent = "Not an E-Mail"
+    }
 });
