@@ -19,23 +19,44 @@ const newArduinoFormDownloadButton = document.querySelector(".new-arduino-menu__
 const newArduinoFormName = document.querySelector(".new-arduino-menu__forms-name");
 
 newArduinoForm.addEventListener("click", (e) => {
-
+    e.preventDefault();
     /*
     searchpattern = abhängig von der DB
     */
 
     if (newArduinoFormName === "" || newArduinoFormName.value.search(/searchpattern/gi)) {
 
-
-
-        e.preventDefault();
+        
     } else {
     }
 });
 
-const arduinoTable = document.querySelector(".arduino-table");
 
-async function fetchArduinoData(url) {
+async function postArduinoData(url, dataToPOST) {
+    try {
+        const reponse = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(dataToPOST)
+        });
+        if (reponse.ok) {
+            const arduinoData = await reponse.json();
+
+            //Auf Bestätigung warten
+        } else {
+            /*
+            Da catch nur Fehler unterhalb Layer 7 abfängt, muss hier genau überprüft werden, ob der response code ausserhalb von 200 ist =>(response.ok).
+            */
+            throw new Error();
+        }
+    } catch (error) {
+        console.error(error)
+    }   
+}
+
+async function getArduinoData(url) {
     try {
         const reponse = await fetch(url, {
             method: 'GET',
@@ -47,6 +68,9 @@ async function fetchArduinoData(url) {
             const arduinoData = await reponse.json();
             renderArdunioData(arduinoData);
         } else {
+            /*
+            Da catch nur Fehler unterhalb Layer 7 abfängt, muss hier genau überprüft werden, ob der response code ausserhalb von 200 ist =>(response.ok).
+            */
             throw new Error();
         }
     } catch (error) {
@@ -54,9 +78,9 @@ async function fetchArduinoData(url) {
     }   
 }
 
-function renderArdunioData(arduinoFetchObjects) {
-    const ardtable = document.querySelector(".arduino-table");
+const arduinoTable = document.querySelector(".arduino-table");
 
+function renderArdunioData(arduinoFetchObjects) {
     //Für jedes Element das gelifert wird -> Arduino Objekt 
     arduinoFetchObjects.forEach((arduinoObject) => {
 

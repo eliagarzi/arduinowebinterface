@@ -118,7 +118,7 @@ resetPasswordForm.addEventListener("submit", (event) => {
         formElementInfoP.style.display = "none";
         resetPasswordFormEmail.style.border = "2px solid #3eb666";
 
-        sendJSONToBackend("http://127.0.0.1:3000/api/user/reset", {email: resetPasswordFormEmail.value}, loginInfo)
+        sendJSONToBackend("http://127.0.0.1:3000/user/reset", {email: resetPasswordFormEmail.value}, loginInfo)
         .then((response) => response.json())
         .then((data) => {
             formElementEmail.style.display = "none";
@@ -132,3 +132,18 @@ resetPasswordForm.addEventListener("submit", (event) => {
         formElementInfoP.textContent = "Not an E-Mail"
     }
 });
+
+async function sendEmail(url, email) {
+    try {
+        const request = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(email)
+        })
+        return request;
+    } catch (error) {
+        console.log(error)
+    }
+}

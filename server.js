@@ -60,9 +60,41 @@ server.get("/login", (req, res) => {
     res.render("login", {message: ''})
 });
 
-server.get("/dashboard/download", (httprequest, httpresponse) => {
-    httpresponse.download("./test.txt");
+server.get("/api/ardunio/config/download", (req, res) => {
+    res.download("./dbtest.js");
 }); 
+
+server.post("/user/reset", jsonParser, (req, res) => {
+    console.log("ts")
+    let randomString = crypto.randomBytes(30).toString("hex");
+    serverCache.set(randomString, req.body.email, 600);
+    console.log(randomString)
+    res.json({link: `http://127.0.0.1:3000/user/reset/?link=${randomString}`})
+    //res.send("Custom Link: http://127.0.0.1/user/reset/${randomString}");
+})
+
+server.get("/user/reset/", (req, res) => {
+    let randomString = req.query.link;
+    
+    if(serverCache.get(randomString) != undefined && serverCache.get(randomString) !== null) {
+        res.render("reset");
+    } else {
+        res.send("Link ist ungültig");
+    }
+});
+
+server.post("/user/reset/", jsonParser, (req, res) => {
+    let randomString = req.query.link;
+    console.log("password reset")
+    console.log(randomString)
+    if(serverCache.get(randomString) != undefined && serverCache.get(randomString) !== null) {
+        console.log(req.body.password)
+        serverCache.del(randomString);
+        res.send("<h1>Erfolgreich</h1>")        
+    } else {
+        res.send("Link ist ungültig");
+    }
+})
 
 //Definieren auf welchem Port der Server Daten empfangen kann
 //Damit wir wissen, wann der Server gestartet ist, triggern wir eine Callback Funktion, welche uns bescheid gibt, dass der Server gestartet ist

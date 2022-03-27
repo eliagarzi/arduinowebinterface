@@ -1,3 +1,7 @@
+server.get("/api/ardunio/config/download", (req, res) => {
+    httpresponse.download("./test.txt");
+}); 
+
 server.get("/api/arduino/all", (req, res) => {
     let jsonData = [
         {
@@ -18,4 +22,9 @@ server.get("/api/arduino/all", (req, res) => {
     ]
 
     res.json(jsonData);
+});
+
+
+server.post("/api/ardunio/", (req, res) => {
+    
 });
