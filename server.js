@@ -70,7 +70,6 @@ server.post("/user/reset", jsonParser, (req, res) => {
     serverCache.set(randomString, req.body.email, 600);
     console.log(randomString)
     res.json({link: `http://127.0.0.1:3000/user/reset/?link=${randomString}`})
-    //res.send("Custom Link: http://127.0.0.1/user/reset/${randomString}");
 })
 
 server.get("/user/reset/", (req, res) => {

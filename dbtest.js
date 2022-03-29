@@ -1,5 +1,3 @@
-const dbmodule = require("./test.js");
-
 db.serialize(function() {
     db.run("CREATE TABLE lorem (info TEXT)");
   
