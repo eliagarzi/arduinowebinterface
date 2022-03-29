@@ -1,6 +1,4 @@
-server.get("/api/ardunio/config/download", (req, res) => {
-    httpresponse.download("./test.txt");
-}); 
+
 
 server.get("/api/arduino/all", (req, res) => {
     let jsonData = [
