@@ -10,6 +10,8 @@ server.set("view engine", "ejs");
 //Bestimmen wo Node für das rendern von EJS-Files statische files ziehen kann
 server.use(express.static(__dirname + '/source'));
 
+server.use(express.json());
+
 /*
     HTTPRequest und HTTPResponse sind Objekte, die jegliche Eigenschaften zu den HTTP Responses und Requests speichern.
 
@@ -20,8 +22,7 @@ server.use(express.static(__dirname + '/source'));
     httprequest.headers = Jegliche Eigenschaften, die im Header des HTTP-Requests mitgesendet wurden
 */
 
-//Dies ist der Event-Handler falls sich jemand versucht einzulogen
-server.post("/login", urlencodedParser, (httprequest, httpresponse) => {
+server.post("/login", (httprequest, httpresponse) => {
     const input = {username: httprequest.body.loginemail, password: httprequest.body.loginpassword}
 
     if (input.username === "admin@local.com" && input.password === "password") {
@@ -31,7 +32,7 @@ server.post("/login", urlencodedParser, (httprequest, httpresponse) => {
     }
 }); 
 
-server.post("/reset", urlencodedParser, (httprequest, httpresponse) => {
+server.post("/reset", (httprequest, httpresponse) => {
     const input = {username: httprequest.body.passwordresetemail}
 
     //Send Email
@@ -43,10 +44,6 @@ server.post("/reset", urlencodedParser, (httprequest, httpresponse) => {
     }
 });
 
-server.get("/api", (httprequest, httpresponse) => {
-    httpresponse.sendStatus(200);
-});
-
 server.get("/index", (httprequest, httpresponse) => {
     httpresponse.render("index");
 });
@@ -55,11 +52,7 @@ server.get("/login", (req, res) => {
     res.render("login", {message: ''})
 });
 
-server.get("/api/ardunio/config/download", (req, res) => {
-    res.download("./dbtest.js");
-}); 
-
-server.post("/user/reset", jsonParser, (req, res) => {
+server.post("/user/reset", (req, res) => {
     console.log("ts")
     let randomString = crypto.randomBytes(30).toString("hex");
     serverCache.set(randomString, req.body.email, 600);
@@ -77,7 +70,7 @@ server.get("/user/reset/", (req, res) => {
     }
 });
 
-server.post("/user/reset/", jsonParser, (req, res) => {
+server.post("/user/reset/", (req, res) => {
     let randomString = req.query.link;
     console.log("password reset")
     console.log(randomString)
@@ -92,6 +85,10 @@ server.post("/user/reset/", jsonParser, (req, res) => {
 
 //Definieren auf welchem Port der Server Daten empfangen kann
 //Damit wir wissen, wann der Server gestartet ist, triggern wir eine Callback Funktion, welche uns bescheid gibt, dass der Server gestartet ist
-server.listen(port, () => {
-    console.log(`Node.js Server is running on Port ${port}`);
+server.listen(port, (error) => {
+    if(error) {
+        console.error(error)
+    } else {
+        console.log(`Node.js Server is running on Port ${port}`);
+    }
 });

@@ -31,7 +31,6 @@ newArduinoForm.addEventListener("click", (e) => {
     }
 });
 
-
 async function postArduinoData(url, dataToPOST) {
     try {
         const reponse = await fetch(url, {
@@ -43,11 +42,9 @@ async function postArduinoData(url, dataToPOST) {
         });
         if (reponse.ok) {
             const arduinoData = await reponse.json();
-
             //Auf Bestätigung warten
         } else {
-            /*
-            Da catch nur Fehler unterhalb Layer 7 abfängt, muss hier genau überprüft werden, ob der response code ausserhalb von 200 ist =>(response.ok).
+            /* Da catch nur Fehler unterhalb Layer 7 abfängt, muss hier genau überprüft werden, ob der response code ausserhalb von 200 ist =>(response.ok).
             */
             throw new Error();
         }
@@ -58,15 +55,14 @@ async function postArduinoData(url, dataToPOST) {
 
 async function getArduinoData(url) {
     try {
-        const reponse = await fetch(url, {
+        const response = await fetch(url, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json'
             }
         });
-        if (reponse.ok) {
-            const arduinoData = await reponse.json();
-            renderArdunioData(arduinoData);
+        if (response.ok) {
+            return response;
         } else {
             /*
             Da catch nur Fehler unterhalb Layer 7 abfängt, muss hier genau überprüft werden, ob der response code ausserhalb von 200 ist =>(response.ok).
@@ -98,6 +94,9 @@ function renderArdunioData(arduinoFetchObjects) {
 
 window.addEventListener("load", () => {
 
-    //Error on initial fetch
-    
+   getArduinoData("http://127.0.0.1:4000/api")
+   .then((response) => response.json())
+   .then((data) => {
+       console.log(data)
+   }) 
 });
