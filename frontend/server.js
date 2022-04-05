@@ -1,6 +1,4 @@
-import express from "express";
-import bodyParser from "body-parser" //Middleware, um das Body objekt im HTTP Request zu abstrahieren
-
+const express = require("express");
 const port = 3000; 
 
 //Eine neue Instanz des Express Objekt erstellen
@@ -8,9 +6,6 @@ const server = express();
 
 //Die View Engine bestimmen, die Node.js nutzen soll
 server.set("view engine", "ejs");
-
-//Body Parser Middleware um auf Elemente im Body des HTTP Requests zuzugreifen
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 //Bestimmen wo Node für das rendern von EJS-Files statische files ziehen kann
 server.use(express.static(__dirname + '/source'));
