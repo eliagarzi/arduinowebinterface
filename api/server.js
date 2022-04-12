@@ -1,11 +1,19 @@
-const express = require("express");
 const redis = require("redis");
-
-const port = 4000;
-
+const express = require("express");
 const server = new express();
+const HTTPserver = require('http').createServer(server);
+const ws = require("ws");
+const wss = new ws.WebSocketServer({ server: HTTPserver });
 
-server.use(express.json());
+const port = 8080;
+
+wss.on('connection', function connection(ws) {
+  ws.on('message', function message(data) {
+    console.log('received: %s', data);
+  });
+
+  ws.send('something');
+});
 
 const redisClient = redis.createClient({
     url: 'redis://127.0.0.1:6379'
@@ -24,8 +32,16 @@ async function storeListInRedis(key, value) {
     }
 }
 
-server.post("/api/ardunio/status", (req, res) => {
 
+
+server.use(express.json());
+
+
+
+
+
+
+server.post("/api/ardunio/status", (req, res) => {
     let ardunioKey = req.body.key;
     let ardunioValue = req.body.value;
 
@@ -45,10 +61,10 @@ server.get("/api/ardunio/config/download", (req, res) => {
     res.download("./dbtest.js");
 }); 
 
-server.listen(port, (error) => {
+HTTPserver.listen(port, (error) => {
     if(error) {
-        console.error(error)
+        console.log(`Fehler beim Starten vom Server auf Port ${port} ----- ${error}`)
     } else {
         console.log(`Server gestartet auf Port ${port}`)
     }
-});
+})
