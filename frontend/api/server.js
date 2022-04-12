@@ -2,18 +2,10 @@ const redis = require("redis");
 const express = require("express");
 const server = new express();
 const HTTPserver = require('http').createServer(server);
-const ws = require("ws");
-const wss = new ws.WebSocketServer({ server: HTTPserver });
 
 const port = 8080;
 
-wss.on('connection', function connection(ws) {
-  ws.on('message', function message(data) {
-    console.log('received: %s', data);
-  });
-
-  ws.send('something');
-});
+server.use(express.json());
 
 const redisClient = redis.createClient({
     url: 'redis://127.0.0.1:6379'
@@ -31,11 +23,6 @@ async function storeListInRedis(key, value) {
         return error;
     }
 }
-
-
-
-server.use(express.json());
-
 
 
 

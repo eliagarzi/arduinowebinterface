@@ -94,6 +94,9 @@ function renderArdunioData(arduinoFetchObjects) {
 
 window.addEventListener("load", () => {
 
+    //Websocket
+
+
    getArduinoData("http://127.0.0.1:4000/api")
    .then((response) => response.json())
    .then((data) => {

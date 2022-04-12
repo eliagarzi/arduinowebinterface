@@ -10,9 +10,12 @@ server.set("view engine", "ejs");
 //Bestimmen wo Node für das rendern von EJS-Files statische files ziehen kann
 server.use(express.static(__dirname + '/source'));
 
-server.use(express.json());
 
+server.use(express.json());
 const loginRoutes = require('./routes/login');
+
+
+
 server.use("/login", loginRoutes)
 
 server.get("/index", (httprequest, httpresponse) => {
