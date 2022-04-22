@@ -142,7 +142,11 @@ async function sendEmail(url, email) {
             },
             body: JSON.stringify(email)
         })
-        return request;
+        if(!request.ok) {
+            throw new error();       
+        } else {
+            return request;
+        }
     } catch (error) {
         console.log(error)
     }

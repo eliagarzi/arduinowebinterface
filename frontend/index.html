@@ -6,23 +6,32 @@
         <title>Arduino Dashboard</title>
         <meta name="description" content="Dashboard für Arduino API">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="./source/css/login.css">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="./source/css/styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap" rel="stylesheet">
+        <script src="./source/script/index.js" async defer></script>
     </head>
     <body>
 
+        <div class="dashboard-info">
+
+            <div class="dashboard-info__text">
+                <p>
+                    Connection to API-Endpoint failed
+                </p>
+            </div>
+
+            <div class="dashboard-info__status">
+            </div>
+
+        </div>
+
         <header>
-
             <div class="header-element">
-
                 <h1>Arduino Dashboard</h1>
-
             </div>
 
             <div class="header-element">
-
                 <button class="header-element__new-arduino-button">New Arduino</button>
-
             </div>
 
         </header>
@@ -57,65 +66,82 @@
             <div class="arduino-table">
 
                 <table>
-
-                    <tr>
-                        <th>Arduino</th>
-                        <th>Temperatur</th>
-                        <th>Luftfeuchtigkeit</th>
-                        <th>Luftdruck</th>
-                        <th>Token</th>
-                        <th>Last Seen</th>
-                        <th>LED</th>
-                    </tr>
-
-                    <tr>
-                        <td>Zürich</td>
-                        <td>54</td>
-                        <td>45%</td>
-                        <td>23</td>
-                        <td>jOIJOAIWD</td>
-                        <td>23</td>
-                        <td>jOIJOAIWD</td>
-                    </tr>
-                    <tr>
-                        <td>TBZ</td>
-                        <td>23</td>
-                        <td>10%</td>
-                        <td>48</td>
-                        <td>OIJOAIWD+123</td>
-                        <td>23</td>
-                        <td>jOIJOAIWD</td>
-                    </tr>
-
+                    <tbody class="ardunio-table-body">
+                        <tr>
+                            <th>Name</th>
+                            <th>Standort</th>
+                            <th>Last seen</th>
+                            <th>Temperatur</th>
+                            <th>Luftfeuchtigkeit</th>
+                            <th>Luftdruck</th>
+                            <th>Helligkeit</th>
+                            <td><button id="UUID-1" type="button" onclick="confirmDelete(1)">Delete</button></td>
+                        </tr>
+    
+                        <tr class="UUID">
+                            <td>Arudnio123</td>
+                            <td>Zürich West 3</td>
+                            <td>20:16 12.03.2022</td>
+                            <td>23° C </td>
+                            <td>48%</td>
+                            <td>1 Bar</td>
+                            <td>4389</td>
+                            <td><button id="UUID-2" type="button" onclick="confirmDelete(2)">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>Arudnio123</td>
+                            <td>Bern Süd 2</td>
+                            <td>09:16 12.07.2022</td>
+                            <td>44° C </td>
+                            <td>23%</td>
+                            <td>1.24 Bar</td>
+                            <td>5480</td>
+                            <td><button id="UUID-3" type="button" onclick="confirmDelete(3)">Delete</button></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
 
         </div>  
 
-        <div class="new-arduino-menu--blur"></div>
+        <div class="confirm-ardunio-delete" style="display: none;">
+            <form class="confirm-ardunio-delete__form">
+                <p class="confirm-ardunio-delete__name">Name: </p>
+                <input class="confirm-ardunio-delete__input" type="text" required>
+                <button class="confirm-ardunio-delete__button" type="submit"></button>
+            </form>
+        </div>
+
+        <div class="submenu--blur"></div>
 
         <div class="new-arduino-menu">
-
             <div class="new-arduino-menu__header">
-
                 <h2>Neuen Arduino erfassen</h2>
-
             </div>
 
             <div class="new-arduino-menu__body">
+
                 <form class="new-arduino-menu__forms">
                     <div class="form-element form-name">
                         <label for="name">Name</label>
-                        <input name="name" class="new-arduino-menu__forms-name" type="text" required>
+                        <input name="name" class="form-name-input" type="text" required>
+                    </div>
+
+                    <div class="form-element form-name">
+                        <label for="location">Location</label>
+                        <input name="location" class="form-location-input" type="text" required>
                     </div>
 
                     <div class="form-element form-token">
                         <label>Access Token</label>
+
                         <div class="form-token-copy-token">
+
                             <button type="button">
                                 <p>Token</p>
                                 <img src="/img/copy.png" alt="copy" height="15px" width="15px">
                             </button>
+
                         </div>
                     </div>
 
@@ -126,24 +152,10 @@
                     <div class="form-element form-submit">
                         <button class="new-arduino-menu__forms--submitform" type="submit">Arduino Erstellen</button>
                     </div>
-                    
                 </form>
-            </div>
-        </div>
 
-        <div class="dashboard-info">
-
-            <div class="dashboard-info__text">
-                <p>
-                    Connection to API-Endpoint failed
-                </p>
-            </div>
-
-            <div class="dashboard-info__status">
             </div>
 
         </div>
-
-        <script src="./source/script/index.js" async defer></script>
     </body>
 </html>
