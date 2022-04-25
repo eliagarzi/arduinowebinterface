@@ -141,10 +141,6 @@ server.post("/api/arduino/create/", async (req, res) => {
             await redisClient.set(newUUID, JSON.stringify(req.body));
             const ardunio = JSON.parse(await redisClient.get(newUUID))
             console.log(await redisClient.lRange("uuid-store", 0, -1))
-
-
-
-
             res.sendStatus(201)
         } catch (error) {
             //Login Menu

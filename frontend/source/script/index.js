@@ -3,6 +3,8 @@ const newArduinoMenu = document.querySelector(".new-arduino-menu");
 const submenuBlur = document.querySelector(".submenu--blur");
 const confirmArdunioDeleteMenu = document.querySelector(".confirm-ardunio-delete");
 
+//Mehrere Menüs
+
 //Wenn auf den New Arduino Button gedrückt wird, wird das Fenster geöffnet
 newArdunioButton.addEventListener("click", function(){
     submenuBlur.style.display = "block"
@@ -21,31 +23,37 @@ const confirmArdunioDeleteInput = document.querySelector(".confirm-ardunio-delet
 const confirmArdunioDeleteButton = document.querySelector(".confirm-ardunio-delete__button");
 const confirmArdunioDeleteName = document.querySelector(".confirm-ardunio-delete__form");
 
+confirmArdunioDeleteInput.addEventListener("input", (e) => {
+    if(confirmArdunioDeleteInput.value === uuidElementID) {
+        confirmArdunioDeleteButton.style.backgroundcolor = "green";
+        confirmArdunioDeleteButton.addEventListener("click", () => {
+            //deleteArdunio(uuidElementID)
+            confirmArdunioDeleteForm.style.display = "none";
+            submenuBlur.style.display = "none"
+        })
+    } else {
+        e.preventDefault();
+        confirmArdunioDeleteButton.style.backgroundcolor = "gray";
+    }
+})
 
 function confirmDelete(uuidElementID) {
     submenuBlur.style.display = "block";
     confirmArdunioDeleteForm.style.display = "block";
     //confirmArdunioDeleteName.textContent = uuidElementID;
+}
 
-    confirmArdunioDeleteInput.addEventListener("input", (e) => {
-        if(confirmArdunioDeleteInput.value === uuidElementID) {
-            confirmArdunioDeleteButton.style.backgroundcolor = "green";
-            confirmArdunioDeleteButton.addEventListener("click", () => {
-                //deleteArdunio(uuidElementID)
-                confirmArdunioDeleteForm.style.display = "none";
-                submenuBlur.style.display = "none"
-            })
-        } else {
-            e.preventDefault();
-            confirmArdunioDeleteButton.style.backgroundcolor = "gray";
-        }
+let menuArray = [];
+
+function openWindow(windowToOpen) {
+    //Close all Menus
+    menuArray.forEach((e) => {
+        
     })
 }
 
 
-
 function deleteArdunio(uuidElementID) {
-
     const currentUUID = uuidElementID;
     if(ok) {
 

@@ -1,0 +1,270 @@
+@import "_variables.scss";
+@import "_fonts.scss";
+
+.background-hide {
+    position: absolute;
+    z-index: 100;
+    background-color: #6B2BD160;
+}
+
+body {
+    color: white;
+    background-color: #6B2BD1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row;
+
+    .header__button {
+        justify-self: flex-end;
+        align-self: center;        
+    }
+}
+
+.heading-1 {
+    font-size: $font-size-header1;
+    font-family: "poppins semibold";
+}
+
+
+.ardunio-overview-table {
+    height: 100%; //75.5%
+    width: 100%; //65.5%
+    background-color: $color-dark-gray;
+    border-radius: 1rem;
+    overflow: auto;
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+
+        thead {
+            height: 3.81rem;
+            background-color: white;
+
+            th {
+                width: auto;
+        
+                .button-table-head {
+                    //width: calc(100/6*1%);
+                    border: none;
+                    outline: none;
+                    background: none;
+                    font-size: 1.375rem;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    .ardunio-overview-table__body {
+    
+        .ardunio-overview-table__element {
+            color: white;
+            font-size: $font-size-text;
+        }
+    }
+}
+
+.button-general {
+    background-color: none;
+    outline: none;
+    border: none;
+    border-radius: 0.5rem;
+
+    font-size: $font-size-button;
+    font-family: "poppins medium";
+    letter-spacing: 0.2px;
+
+    height: 2rem;
+    width: 8rem;
+    color: white;
+
+    &:hover {
+        transition: all .1s;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+}
+
+.button-red {
+    background-color: $color-red;
+
+    &:hover {
+        border: 1px solid $color-red;
+        color: $color-red;
+    }
+
+    &:active {
+        color: white;
+        background-color: $color-red;
+    }
+}
+
+.button-green {
+    background-color: $color-green;
+
+    &:hover {
+        border: 2px solid $color-green;
+        color: $color-green;
+    }
+
+    &:active {
+        color: white;
+        background-color: $color-green;
+    }
+}
+
+.button-white {
+    background-color: white;
+    color: $color-dark-gray !important;
+
+    &:hover {
+        background-color: $color-dark-gray !important;
+        color: white !important;
+    }
+
+    &:active {
+        color: $color-dark-gray !important;
+        background-color: white !important;
+    }
+}
+
+.button-purple {
+    background-color: $color-purple;
+
+    &:hover {
+        border: 2px solid $color-purple;
+        color: $color-purple;
+    }
+
+    &:active {
+        color: white;
+        background-color: $color-purple;
+    }
+}
+
+.button-table-head {
+    background-color: transparent !important;
+    color: $color-gray;
+
+    &:hover {
+        color: $color-dark-gray;
+    }
+
+    &:active {
+        color: $color-gray;
+        background-color: $color-red;
+    }
+}
+
+.input-general {
+    border: none;
+    width: 19.3125rem;
+    height: 2rem;
+
+    background-color: white;
+    border-radius: 0.5rem;
+
+    padding: 0.5rem 1.375rem;
+
+    font-family: "poppins medium";
+
+    &::placeholder {
+        color: $color-gray;
+        font-size: $font-size-text;
+    }
+}
+
+.input-outline--red {
+    border: 0.125rem solid $color-red;
+}
+
+.input-outline--green {
+    border: 0.125rem solid $color-red;
+}
+
+.menu-general {
+    position: absolute;
+    width: 19%;
+    top: 20%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+
+    border-radius: 1rem;
+    background-color: $color-dark-gray;
+    box-shadow: 0px 3px 6px #00000016;
+}
+
+.menu-general-form {
+    padding: 1rem;
+
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    input, button {
+        margin: 0.5rem 0;
+    }
+
+    .menu-general-button-container {
+        width: 19.3125rem;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+    }
+}
+
+.widget-info {
+    background-color: $color-dark-gray;
+    border-radius: 1rem;
+    box-shadow: 0px 3px 6px #00000016;
+    width: 100%; //12.95%
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    flex-flow: column;
+    flex-wrap: nowrap;
+
+    .widget-info__value {
+        font-family: "poppins semibold";
+    }
+
+    .widget-info__unit {
+        font-size: 1.142rem;
+        font-family: "poppins semibold";
+    }
+
+    .widget-info__description {
+        font-size: $font-size-header2;
+        font-family: "poppins semibold";
+    }
+}
+
+.widget-info__value--focus {
+    font-size: $font-size-currentvalue;
+}
+
+.widget-info__value--green {
+    color: $color-green;
+}
+
+.widget-info__value--yellow {
+    color: $color-yellow;
+}
