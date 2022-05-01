@@ -6,7 +6,7 @@ Funktionen der API:
 
 - Arduinos verwalten und erstellen
 - Arduinos ansprechen
-- Daten von Ardunio Mikrocontrollern empfangen
+- Daten von arduino Mikrocontrollern empfangen
 - Loginsystem für User auf Basis von Session-basierter Authentifizierung
 - Arduino Authentifizierung auf Basis von JWT Tokens
 
