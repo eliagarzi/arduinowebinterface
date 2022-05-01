@@ -8,6 +8,9 @@ const cors = require("cors");
 const redis = require("redis");
 const crypto = require("crypto");
 
+let messageValidationFailed = "Validation failed";
+let messageRedisServerFailed = "Redis Server failed";
+
 //############################################
 //Speichern der UUID Liste im Node-Cache beim Startup, damit das überprüfen der Querystrings schneller funktioniert
 
@@ -83,11 +86,11 @@ function checkQuery(req, res, next) {
 */
 
 //##############################
-//Routes für Ardunio
+//Routes für arduino
 //##############################
 
-//Route um einen neuen Ardunio zu erfassen
-//Format: "http://fqdn/api/ardunio/delete/?id=uuid"
+//Route um einen neuen arduino zu erfassen
+//Format: "http://fqdn/api/arduino/delete/?id=uuid"
 server.post("/api/arduino/delete", checkQuery, async (req, res) => {
     
     let currentUUID = req.query.uuid;
@@ -96,7 +99,7 @@ server.post("/api/arduino/delete", checkQuery, async (req, res) => {
             try {
                 //UUID aus dem UUID-Speicher löschen
                 //await redisClient.delete()
-                //Löscht das Ardunio Objekt in welchem alle Angaben gespeichert sind
+                //Löscht das arduino Objekt in welchem alle Angaben gespeichert sind
                 await redisClient.del(currentUUID)
                 //###############################
                 //Delete JWT Token
@@ -115,12 +118,12 @@ server.post("/api/arduino/delete", checkQuery, async (req, res) => {
     }
 });
 
-//Route um einen neuen Ardunio zu erfassen
-//Format: "http://fqdn/api/ardunio/create"
+//Route um einen neuen arduino zu erfassen
+//Format: "http://fqdn/api/arduino/create"
 /*
 {
     {
-        name: "ardunio123",
+        name: "arduino123",
         location: "Zürich",
         lastseen: "00:00" //Eventuell als Time Objekt speichern
     }
@@ -128,28 +131,57 @@ server.post("/api/arduino/delete", checkQuery, async (req, res) => {
 */
 
 server.post("/api/arduino/create/", async (req, res) => {
+    console.log("event")
+    let timeout = setTimeout(() => {
+        //wait
+        console.log("time")
+        res.sendStatus(204)
+    }, 3000)
 
     //#############Es muss noch überprüft werden, dass nicht zuviele Elemente im Body sind
-
+    /*
     //Überprüfe, ob die benötigten Body Elemente vorhanden sind 
     if (req.body.name != undefined && req.body.location != undefined && req.body.lastseen != undefined) {
         let newUUID = crypto.randomUUID();
         //################Redis ist noch nicht connected
-        //Ardunios als Liste speichern
+        //arduinos als Liste speichern
         try {
             await redisClient.lPush("uuid-store", newUUID)
             await redisClient.set(newUUID, JSON.stringify(req.body));
-            const ardunio = JSON.parse(await redisClient.get(newUUID))
+            const arduino = JSON.parse(await redisClient.get(newUUID))
             console.log(await redisClient.lRange("uuid-store", 0, -1))
             res.sendStatus(201)
         } catch (error) {
             //Login Menu
             console.log(error)
-            res.json({error: "Redis Server failed"})
+            res.json({error: messageRedisServerFailed})
         }
     } else {
         //Nachricht soll im Frontend dargestellt werden
-        res.json({error: "Validation failed"});
+        res.json({error: messageValidationFailed});
+    }
+    //In Redis speichern
+    //Websocket Event auslösen
+    */
+});
+
+server.post("/api/arduino/change", checkQuery, checkBody, async (req, res) => {
+    if(req.query.uuid != undefined) {
+        const currentUUID = req.query.uuid;
+
+        if(req.body.name != undefined && req.body.location != undefined) {
+            try {
+                await redisClient.set(newUUID, JSON.stringify(req.body));
+                res.json({message: "Ardunio Properties Changed"})
+            } catch (error) {
+                console.log(error)
+                res.json({error: messageRedisServerFailed})
+            }
+        } else {
+            res.json({error: messageValidationFailed})
+        }
+    } else {
+        res.json({error: messageValidationFailed})
     }
     //In Redis speichern
     //Websocket Event auslösen
@@ -164,8 +196,8 @@ server.get("/api/arduino/", async (req, res) => {
         try {
             //Check if redis contains uuid
             if(await redisClient.exists(currentUUID)) {
-                const ardunioToGet = JSON.parse(await redisClient.get(currentUUID))
-                res.json(ardunioToGet)
+                const arduinoToGet = JSON.parse(await redisClient.get(currentUUID))
+                res.json(arduinoToGet)
             } else {
                 res.sendStatus(404)
             }
@@ -178,9 +210,9 @@ server.get("/api/arduino/", async (req, res) => {
     }    
 })
 
-//Format: "http://fqdn/api/ardunio/all"
+//Format: "http://fqdn/api/arduino/all"
 //Route um die Daten zu allen Arduinos abzurufen -> Funktioniert nur mit Auth
-server.get("/api/ardunio/all/", checkAuth, (req, res) => {
+server.get("/api/arduino/all/", checkAuth, (req, res) => {
     //aus Redis abrufen
 })
 
