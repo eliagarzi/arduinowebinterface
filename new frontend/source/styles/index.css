@@ -10,12 +10,15 @@
 
 .background-hide {
   position: absolute;
+  top: 0;
+  left: 0;
   z-index: 100;
+  width: 100%;
+  height: 100%;
   background-color: #6B2BD160;
 }
 
 body {
-  color: white;
   background-color: #6B2BD1;
 }
 
@@ -40,60 +43,193 @@ body {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
+  margin-right: 37px;
 }
 
 .heading-1 {
+  color: white;
   font-size: 4rem;
   font-family: "poppins semibold";
 }
 
-.ardunio-overview-table {
-  height: 100%;
+.status-info {
+  -ms-grid-column: 2;
+  grid-column: 2;
+  -ms-grid-row: 1;
+  grid-row: 1;
+  background-color: white;
+  border-radius: 0.5rem;
+  height: 28px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  vertical-align: middle;
+}
+
+.status-info p {
+  font-size: 16px;
+  font-family: "poppins medium";
+}
+
+.status-info--error {
+  background-color: #FF6A6A !important;
+  color: white !important;
+  font-size: 16px;
+  font-family: "poppins medium";
+}
+
+.status-info--animate .status-info__animation-section {
   width: 100%;
+  height: 3px;
+  position: relative;
+  overflow: hidden;
+  background-color: #7DD68E;
+  border-radius: 20px;
+}
+
+.status-info--animate .status-info__animation-section:before {
+  content: "";
+  position: absolute;
+  left: -50%;
+  height: 3px;
+  width: 40%;
+  background-color: white;
+  -webkit-animation: lineAnim 1s linear infinite;
+          animation: lineAnim 1s linear infinite;
+}
+
+@-webkit-keyframes lineAnim {
+  0% {
+    left: -40%;
+  }
+  50% {
+    left: 20%;
+    width: 80%;
+  }
+  100% {
+    left: 100%;
+    width: 100%;
+  }
+}
+
+@keyframes lineAnim {
+  0% {
+    left: -40%;
+  }
+  50% {
+    left: 20%;
+    width: 80%;
+  }
+  100% {
+    left: 100%;
+    width: 100%;
+  }
+}
+
+.arduino-overview-table {
   background-color: #3B415A;
   border-radius: 1rem;
   overflow: auto;
+  -webkit-box-shadow: 0px 3px 6px #00000016;
+          box-shadow: 0px 3px 6px #00000016;
 }
 
-.ardunio-overview-table table {
+.arduino-overview-table table {
   border-collapse: collapse;
   width: 100%;
 }
 
-.ardunio-overview-table table thead {
-  height: 3.81rem;
+.arduino-overview-table table thead {
+  width: 100%;
+  height: 61px;
   background-color: white;
 }
 
-.ardunio-overview-table table thead th {
-  width: auto;
+.arduino-overview-table table thead th {
+  width: 163px;
+  text-align: left;
 }
 
-.ardunio-overview-table table thead th .button-table-head {
+.arduino-overview-table table thead th .button-table-head {
+  text-align: left;
   border: none;
   outline: none;
   background: none;
   font-size: 1.375rem;
+  font-family: "poppins semibold";
+  color: #707070;
 }
 
-.ardunio-overview-table table thead th .button-table-head:hover {
+.arduino-overview-table table thead th .button-table-head:hover {
+  cursor: pointer;
+  color: #3B415A;
+}
+
+.arduino-overview-table table thead th:first-child {
+  padding-left: 51px;
+}
+
+.arduino-overview-table table thead th:last-child {
+  text-align: right;
+  padding-right: 37px;
+}
+
+.arduino-overview-table table tbody .table-row {
+  height: 56px;
+}
+
+.arduino-overview-table table tbody .table-row .table-data-general {
+  font-size: 18px;
+  text-align: left;
+  color: white;
+  font-family: "poppins medium";
+}
+
+.arduino-overview-table table tbody .table-row .table-data-general:first-child {
+  padding-left: 51px;
+}
+
+.arduino-overview-table table tbody .table-row .table-data-general:last-child {
+  text-align: right;
+  padding-right: 37px;
+}
+
+.arduino-overview-table table tbody .table-row:hover {
+  background-color: #7DD68E20 !important;
   cursor: pointer;
 }
 
-.ardunio-overview-table .ardunio-overview-table__body .ardunio-overview-table__element {
+.arduino-overview-table table tbody .table-row:nth-child(odd) {
+  background-color: #FFFFFF15;
+}
+
+.arduino-overview-table .arduino-overview-table__body .arduino-overview-table__element {
   color: white;
   font-size: 1rem;
 }
 
+.table-row--active {
+  background-color: #7DD68E54;
+}
+
 .button-general {
-  background-color: none;
+  background: none;
   outline: none;
   border: none;
   border-radius: 0.5rem;
-  font-size: 1.125rem;
+  font-size: 22px;
   font-family: "poppins medium";
-  letter-spacing: 0.2px;
-  height: 2rem;
+  letter-spacing: 0.064px;
+  height: 38px;
   width: 8rem;
   color: white;
 }
@@ -111,10 +247,12 @@ body {
 
 .button-red {
   background-color: #FF6A6A;
+  -webkit-box-shadow: 0px 3px 6px #00000016;
+          box-shadow: 0px 3px 6px #00000016;
 }
 
 .button-red:hover {
-  border: 1px solid #FF6A6A;
+  border: 2px solid #FF6A6A;
   color: #FF6A6A;
 }
 
@@ -125,6 +263,8 @@ body {
 
 .button-green {
   background-color: #7DD68E;
+  -webkit-box-shadow: 0px 3px 6px #00000016;
+          box-shadow: 0px 3px 6px #00000016;
 }
 
 .button-green:hover {
@@ -140,6 +280,8 @@ body {
 .button-white {
   background-color: white;
   color: #3B415A !important;
+  -webkit-box-shadow: 0px 3px 6px #00000016;
+          box-shadow: 0px 3px 6px #00000016;
 }
 
 .button-white:hover {
@@ -153,7 +295,10 @@ body {
 }
 
 .button-purple {
+  border: 2px solid #6B2BD1;
   background-color: #6B2BD1;
+  -webkit-box-shadow: 0px 3px 6px #00000016;
+          box-shadow: 0px 3px 6px #00000016;
 }
 
 .button-purple:hover {
@@ -166,18 +311,19 @@ body {
   background-color: #6B2BD1;
 }
 
-.button-table-head {
-  background-color: transparent !important;
-  color: #707070;
+.button-table {
+  width: 8rem;
+  background: none;
+  outline: none;
+  border: none;
+  text-align: center;
+  padding: 0.3rem;
+  font-size: 20px;
+  color: white;
 }
 
-.button-table-head:hover {
-  color: #3B415A;
-}
-
-.button-table-head:active {
-  color: #707070;
-  background-color: #FF6A6A;
+.button-table:hover {
+  cursor: pointer;
 }
 
 .input-general {
@@ -215,13 +361,14 @@ body {
 }
 
 .input-outline--green {
-  border: 0.125rem solid #FF6A6A;
+  border: 0.125rem solid #7DD68E;
 }
 
 .menu-general {
   position: absolute;
-  width: 19%;
-  top: 20%;
+  z-index: 200;
+  width: 364px;
+  top: 245px;
   left: 0;
   right: 0;
   margin-left: auto;
@@ -249,11 +396,11 @@ body {
 }
 
 .menu-general-form input, .menu-general-form button {
-  margin: 0.5rem 0;
+  margin-bottom: 18px;
 }
 
 .menu-general-form .menu-general-button-container {
-  width: 19.3125rem;
+  width: 309px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -266,12 +413,33 @@ body {
           justify-content: space-between;
 }
 
+.arduino-options-menu {
+  width: 236px;
+  padding: 10px2;
+}
+
+.button-red--grayed {
+  color: #3B415A;
+  background-color: #707070;
+}
+
+.button-red--grayed:hover {
+  color: #3B415A;
+  background-color: #707070;
+}
+
+.button-red--grayed:active {
+  color: #3B415A;
+  background-color: #707070;
+}
+
 .widget-info {
   background-color: #3B415A;
   border-radius: 1rem;
   -webkit-box-shadow: 0px 3px 6px #00000016;
           box-shadow: 0px 3px 6px #00000016;
-  width: 100%;
+  padding-top: 24px;
+  padding-bottom: 24px;
   color: white;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -279,19 +447,15 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-flow: column;
           flex-flow: column;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
 }
 
 .widget-info .widget-info__value {
   font-family: "poppins semibold";
+  letter-spacing: 0.64px;
 }
 
 .widget-info .widget-info__unit {
@@ -302,6 +466,31 @@ body {
 .widget-info .widget-info__description {
   font-size: 1.375rem;
   font-family: "poppins semibold";
+}
+
+.widget-gauge .widget-info__gauge {
+  -webkit-transform: translateY(-3rem);
+          transform: translateY(-3rem);
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  font-size: 32px;
+  font-family: "poppins semibold";
+  letter-spacing: 0.64px;
+  /*
+        background: 
+        radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
+        conic-gradient(
+          rgb(23, 0, 128) 0% calc(99 * 1%),
+            white 0% 1%  
+        );*/
+  background-color: red;
+}
+
+.widget-humidity {
+  place-self: end center;
+  width: 234px;
+  height: 132px;
 }
 
 .widget-info__value--focus {
@@ -316,6 +505,36 @@ body {
   color: #FFD76A;
 }
 
+@-webkit-keyframes update {
+  0% {
+    color: white;
+  }
+  25% {
+    color: #7DD68E;
+  }
+  75% {
+    color: #7DD68E;
+  }
+  100% {
+    color: white;
+  }
+}
+
+@keyframes update {
+  0% {
+    color: white;
+  }
+  25% {
+    color: #7DD68E;
+  }
+  75% {
+    color: #7DD68E;
+  }
+  100% {
+    color: white;
+  }
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -328,16 +547,18 @@ html {
 }
 
 .grid-container {
-  padding-left: 6%;
+  padding-left: 200px;
+  padding-top: 10px;
+  padding-right: 212px;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 70% 14%;
-      grid-template-columns: 70% 14%;
-  -ms-grid-rows: (135px)[6];
-      grid-template-rows: repeat(6, 135px);
-  -webkit-column-gap: 1.19%;
-          column-gap: 1.19%;
-  row-gap: 2.5%;
+  -ms-grid-columns: 1258px 234px;
+      grid-template-columns: 1258px 234px;
+  -ms-grid-rows: 75px 132px 132px 185px 132px 132px;
+      grid-template-rows: 75px 132px 132px 185px 132px 132px;
+  -webkit-column-gap: 22px;
+          column-gap: 22px;
+  row-gap: 26px;
 }
 
 .header {
@@ -347,7 +568,7 @@ html {
   grid-row: 1;
 }
 
-.ardunio-overview-table {
+.arduino-overview-table {
   -ms-grid-column: 1;
   grid-column: 1;
   -ms-grid-row: 2;

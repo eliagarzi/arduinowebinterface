@@ -11,20 +11,24 @@ html {
 }
 
 .grid-container {
-    padding-left: 6%;
+    padding-left: 200px;
+    padding-top: 10px;
+    padding-right: 212px;
+
     display: grid;
-    grid-template-columns: 70% 14%;
-    grid-template-rows: repeat(6, 1080*0.75/6*1px);
-    column-gap: 1.19%;  
-    row-gap: 2.5%;
+    grid-template-columns: 1258px 234px;
+    grid-template-rows: 75px 132px 132px 185px 132px 132px;     
+    //repeat(6, 1080*0.75/6*1px);
+    column-gap: 22px;  
+    row-gap: 26px;  
 }
 
 .header {
-    grid-column: 1;
+    grid-column: 1; 
     grid-row: 1;
 }
 
-.ardunio-overview-table {
+.arduino-overview-table {
     grid-column: 1;
     grid-row: 2/7;
 }

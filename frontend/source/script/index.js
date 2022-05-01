@@ -1,12 +1,12 @@
-const newArdunioButton = document.querySelector(".header-element__new-arduino-button");
+const newarduinoButton = document.querySelector(".header-element__new-arduino-button");
 const newArduinoMenu = document.querySelector(".new-arduino-menu");
 const submenuBlur = document.querySelector(".submenu--blur");
-const confirmArdunioDeleteMenu = document.querySelector(".confirm-ardunio-delete");
+const confirmarduinoDeleteMenu = document.querySelector(".confirm-arduino-delete");
 
 //Mehrere Menüs
 
 //Wenn auf den New Arduino Button gedrückt wird, wird das Fenster geöffnet
-newArdunioButton.addEventListener("click", function(){
+newarduinoButton.addEventListener("click", function(){
     submenuBlur.style.display = "block"
     newArduinoMenu.style.display = "block";
 });
@@ -15,32 +15,32 @@ newArdunioButton.addEventListener("click", function(){
 submenuBlur.addEventListener("click", function() {
     submenuBlur.style.display = "none"
     newArduinoMenu.style.display = "none";
-    confirmArdunioDeleteMenu.style.display = "none";
+    confirmarduinoDeleteMenu.style.display = "none";
 });
 
-const confirmArdunioDeleteForm = document.querySelector(".confirm-ardunio-delete");
-const confirmArdunioDeleteInput = document.querySelector(".confirm-ardunio-delete__input");
-const confirmArdunioDeleteButton = document.querySelector(".confirm-ardunio-delete__button");
-const confirmArdunioDeleteName = document.querySelector(".confirm-ardunio-delete__form");
+const confirmarduinoDeleteForm = document.querySelector(".confirm-arduino-delete");
+const confirmarduinoDeleteInput = document.querySelector(".confirm-arduino-delete__input");
+const confirmarduinoDeleteButton = document.querySelector(".confirm-arduino-delete__button");
+const confirmarduinoDeleteName = document.querySelector(".confirm-arduino-delete__form");
 
-confirmArdunioDeleteInput.addEventListener("input", (e) => {
-    if(confirmArdunioDeleteInput.value === uuidElementID) {
-        confirmArdunioDeleteButton.style.backgroundcolor = "green";
-        confirmArdunioDeleteButton.addEventListener("click", () => {
-            //deleteArdunio(uuidElementID)
-            confirmArdunioDeleteForm.style.display = "none";
+confirmarduinoDeleteInput.addEventListener("input", (e) => {
+    if(confirmarduinoDeleteInput.value === uuidElementID) {
+        confirmarduinoDeleteButton.style.backgroundcolor = "green";
+        confirmarduinoDeleteButton.addEventListener("click", () => {
+            //deletearduino(uuidElementID)
+            confirmarduinoDeleteForm.style.display = "none";
             submenuBlur.style.display = "none"
         })
     } else {
         e.preventDefault();
-        confirmArdunioDeleteButton.style.backgroundcolor = "gray";
+        confirmarduinoDeleteButton.style.backgroundcolor = "gray";
     }
 })
 
 function confirmDelete(uuidElementID) {
     submenuBlur.style.display = "block";
-    confirmArdunioDeleteForm.style.display = "block";
-    //confirmArdunioDeleteName.textContent = uuidElementID;
+    confirmarduinoDeleteForm.style.display = "block";
+    //confirmarduinoDeleteName.textContent = uuidElementID;
 }
 
 let menuArray = [];
@@ -53,7 +53,7 @@ function openWindow(windowToOpen) {
 }
 
 
-function deleteArdunio(uuidElementID) {
+function deletearduino(uuidElementID) {
     const currentUUID = uuidElementID;
     if(ok) {
 
@@ -62,8 +62,8 @@ function deleteArdunio(uuidElementID) {
         .then((data) => {
 
             const uuidDOMElement = document.querySelector(`.${currentUUID}`);
-            const ardunioTableBody = document.querySelector(".ardunio-table-body");
-            ardunioTableBody.removeChild(uuidDOMElement);
+            const arduinoTableBody = document.querySelector(".arduino-table-body");
+            arduinoTableBody.removeChild(uuidDOMElement);
         })
         .catch((error) => {
             //display error
@@ -153,7 +153,7 @@ async function getArduinoData(url) {
 
 const arduinoTable = document.querySelector(".arduino-table");
 
-function renderArdunioData(arduinoFetchObjects) {
+function renderarduinoData(arduinoFetchObjects) {
     //Für jedes Element das gelifert wird -> Arduino Objekt 
     arduinoFetchObjects.forEach((arduinoObject) => {
 
