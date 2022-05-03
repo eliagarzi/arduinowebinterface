@@ -8,6 +8,8 @@
         <meta name="tags" content="Arduino Dashboard">
         
         <link rel="stylesheet" href="./source/styles/index.css">
+
+        <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
     </head>
     <body>
 
@@ -55,10 +57,10 @@
                         <td class="table-data-general">GULP 62</td>
                         <td class="table-data-general">Zürich 123  </td>
                         <td class="table-data-general">19:23 1.2.2022</td>
-                        <td class="table-data-general">32°</td>
-                        <td class="table-data-general">25%</td>
-                        <td class="table-data-general">2.5 hPA</td>
-                        <td class="table-data-general">203 l</td>
+                        <td class="table-data-general UUID-temperature">32°</td>
+                        <td class="table-data-general UUID-humidity">25%</td>
+                        <td class="table-data-general UUID-airpressure">2.5 hPA</td>
+                        <td class="table-data-general UUID-light">203 l</td>
                         <td class="table-data-general"><button class="button-table" id="2" onclick="openContextMenu(100200300)">&#8226;&#8226;&#8226;</button></td>
                     </tr>
                     <tr class="table-row">

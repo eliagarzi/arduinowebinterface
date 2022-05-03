@@ -1,12 +1,98 @@
+/*
+import { io } from "socket.io-client";
+*/
+
+const socket = io("http://localhost:3000")
+
+socket.on("connection", () => {
+    //Connected to Websocket Server
+})
+
+socket.on("disconnect", () => {
+    //Display Error Message
+})
+
+socket.on("ardunio-init-data", (data) => {
+    //render data
+})    
+
+socket.on("ardunio-update-event", (data) => {
+    updateArdunioInDom(data);
+})
+
+socket.on("data-update-event", () => {
+    updateArdunioDataInDom(data);
+})    
+
+
 let arduinoStore = {
     100200300: {
         "element": "gur",
         "name": "GULP 62",
+        "location": "test",
         "temp": 12,
     }
 }
 
-function testApiConnection() {
+const ardunioTable = document.querySelector(".arduino-overview-table__body");
+
+function createArdunioInDom(data) {
+    let currentUUID = data.uuid;
+
+    //######################################################Wird eher nicht mehr gebraucht
+    //let dataNames = ["temperature", "humidity", "pressure", "hue"]
+
+    let newArdunioRowElement = document.createElement("tr");
+
+    for(let elementIndex of data.info) {
+        let newArdunioTableDataElement = document.createElement("td");
+        newArdunioTableDataElement.textContent = data.info[elementIndex];
+        newArdunioTableDataElement.classList.add(`table-data-general`)
+        newArdunioTableDataElement.classList.add(`${currentUUID}-info`)
+        newArdunioRowElement.appendChild(newArdunioRowElement);
+    } 
+
+    for(let elementIndex of data.data) {
+        let newArdunioTableDataElement = document.createElement("td");
+        newArdunioTableDataElement.textContent = data.data[elementIndex];
+        newArdunioTableDataElement.classList.add(`table-data-general`)
+        newArdunioTableDataElement.classList.add(`${currentUUID}-data`)
+        newArdunioRowElement.appendChild(newArdunioRowElement);
+    } 
+    
+    //Store in local Ardunio Store
+    ardunioTable.appendChild(newArdunioRowElement);
+}
+
+function updateArdunioInDom(data) {
+    let currentUUID = data.uuid;
+    let newData = data.data;
+
+    const ardunioTableDataElements = document.querySelector(`#${currentUUID}-info`)
+
+    for(let childElementIndex in ardunioTableDataElements) {
+        if(ardunioTableDataElements[childElementIndex].textContent !== newData[childElementIndex]) {
+            ardunioTableDataElements[childElementIndex].textContent = newData[childElementIndex];
+            //Update animiation 
+        }    
+    }
+}
+
+function updateArdunioDataInDom(data) {
+    let currentUUID = data.uuid;
+    let newData = data.data;
+
+    const ardunioTableDataElements = document.querySelector(`#${currentUUID}-data`)
+
+    for(let childElementIndex in ardunioTableDataElements) {
+        if(ardunioTableDataElements[childElementIndex].textContent !== newData[childElementIndex]) {
+            ardunioTableDataElements[childElementIndex].textContent = newData[childElementIndex];
+            //Update animiation 
+        }    
+    }
+}
+
+function displayAPIError() {
     
 }
 
@@ -58,7 +144,7 @@ const arduinoDeleteMenuForm = document.querySelector("#arduino-delete-menu__form
 const arduinoChangePropertiesMenuForm = document.querySelector("#arduino-change-properties-menu__form");
 
 function closeAllMenus() {
-    for(e in allMenus) {
+    for(let e in allMenus) {
         allMenus[e].style.display = "none"; 
     }
     arduinoCreateMenuForm.reset();
