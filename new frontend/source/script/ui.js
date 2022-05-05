@@ -2,7 +2,12 @@
 import { io } from "socket.io-client";
 */
 
-const socket = io("http://localhost:3000")
+let tableUnits = ["°", "%", "hPA", "l"]
+
+const socket = io("http://127.0.0.1:3000")
+
+let localArdunioStore = {}
+
 
 socket.on("connection", () => {
     //Connected to Websocket Server
@@ -12,29 +17,55 @@ socket.on("disconnect", () => {
     //Display Error Message
 })
 
+const ardunioTableBody = document.querySelector(".arduino-overview-table__body");
+const ardunioInitInfo = document.querySelector(".ardunio-init-info");
+
 socket.on("ardunio-init-data", (data) => {
-    //render data
+    //console.log(data)
+
+    if(data.init) {
+        ardunioTableBody.style = "none";
+        ardunioInitInfo.style = "block";
+    } else {
+        ardunioInitInfo.style = "none";
+        ardunioTableBody.style = "block";
+        localArdunioStore = data;
+        //console.log(data[0].info)
+    
+        for(let i in data) {
+            createArdunioInDom(data[i])
+        }
+    }
 })    
+
+socket.on("ardunio-create-event", (data) => {
+    createArdunioInDom(data);
+})
+
+socket.on("ardunio-delete-event", (data) => {
+    deleteArdunioInDom(data);
+})
 
 socket.on("ardunio-update-event", (data) => {
     updateArdunioInDom(data);
 })
 
-socket.on("data-update-event", () => {
+socket.on("data-update-event", (data) => {
+    console.log(data.data)
     updateArdunioDataInDom(data);
-})    
+})  
 
-
-let arduinoStore = {
-    100200300: {
-        "element": "gur",
-        "name": "GULP 62",
-        "location": "test",
-        "temp": 12,
-    }
-}
+socket.on("error-event", () => {
+    console.log("asf")
+})
 
 const ardunioTable = document.querySelector(".arduino-overview-table__body");
+
+function deleteArdunioInDom(data) {
+    let currentUUID = data.uuid;
+    const ardunioRowElement = document.querySelector(`.${currentUUID}-row`);
+    ardunioTable.removeChild(ardunioRowElement)
+}
 
 function createArdunioInDom(data) {
     let currentUUID = data.uuid;
@@ -43,24 +74,42 @@ function createArdunioInDom(data) {
     //let dataNames = ["temperature", "humidity", "pressure", "hue"]
 
     let newArdunioRowElement = document.createElement("tr");
+    newArdunioRowElement.classList.add("table-row");
+    newArdunioRowElement.classList.add(`${currentUUID}-row`)
 
-    for(let elementIndex of data.info) {
+    let counter = 0;
+
+    for(let elementValue in data.info) {
         let newArdunioTableDataElement = document.createElement("td");
-        newArdunioTableDataElement.textContent = data.info[elementIndex];
+        newArdunioTableDataElement.textContent = data.info[elementValue];
         newArdunioTableDataElement.classList.add(`table-data-general`)
         newArdunioTableDataElement.classList.add(`${currentUUID}-info`)
-        newArdunioRowElement.appendChild(newArdunioRowElement);
+        newArdunioRowElement.appendChild(newArdunioTableDataElement);
     } 
 
-    for(let elementIndex of data.data) {
+    for(let elementValue in data.data) {
         let newArdunioTableDataElement = document.createElement("td");
-        newArdunioTableDataElement.textContent = data.data[elementIndex];
+        if(data.data[elementValue] == "-") {
+            newArdunioTableDataElement.textContent = data.data[elementValue];
+        } else {
+            newArdunioTableDataElement.textContent = data.data[elementValue]+" "+tableUnits[counter];
+            counter++;
+        }
         newArdunioTableDataElement.classList.add(`table-data-general`)
         newArdunioTableDataElement.classList.add(`${currentUUID}-data`)
-        newArdunioRowElement.appendChild(newArdunioRowElement);
+        newArdunioRowElement.appendChild(newArdunioTableDataElement);
     } 
-    
-    //Store in local Ardunio Store
+
+    let newArdunioTableData = document.createElement("td");
+    newArdunioTableData.classList.add(`table-data-general`)
+    let newArdunioTablaDataButton = document.createElement("button");
+    newArdunioTablaDataButton.classList.add(`button-table`)
+    newArdunioTablaDataButton.setAttribute("onclick", `javascript: openContextMenu("${currentUUID}");`);
+    newArdunioTablaDataButton.innerHTML = "&#8226;&#8226;&#8226;";
+
+    newArdunioTableData.appendChild(newArdunioTablaDataButton);
+    newArdunioRowElement.appendChild(newArdunioTableData);
+
     ardunioTable.appendChild(newArdunioRowElement);
 }
 
@@ -80,15 +129,22 @@ function updateArdunioInDom(data) {
 
 function updateArdunioDataInDom(data) {
     let currentUUID = data.uuid;
-    let newData = data.data;
+    let currentData = data.data;
 
-    const ardunioTableDataElements = document.querySelector(`#${currentUUID}-data`)
+    const ardunioTableDataElements = document.querySelectorAll(`.${currentUUID}-data`)
 
-    for(let childElementIndex in ardunioTableDataElements) {
-        if(ardunioTableDataElements[childElementIndex].textContent !== newData[childElementIndex]) {
-            ardunioTableDataElements[childElementIndex].textContent = newData[childElementIndex];
-            //Update animiation 
+    console.log(currentData)
+    console.log(data.data)
+
+    let counter = 0;
+    for(const item in currentData) {
+        if(ardunioTableDataElements[counter].textContent !== currentData[item]+" "+tableUnits[counter]) {
+            ardunioTableDataElements[counter].textContent = currentData[item]+" "+tableUnits[counter];
+            //Update animiation
+            //console.log(currentData[i])
+            ardunioTableDataElements[counter].classList.add("data-update");
         }    
+        counter++;
     }
 }
 
@@ -97,6 +153,7 @@ function displayAPIError() {
 }
 
 let currentArdunioUUID;
+let currenArdunioName;
 
 const signoutButton = document.querySelector("#button-logout")
 const createButton = document.querySelector("#button-create")
@@ -151,7 +208,6 @@ function closeAllMenus() {
     arduinoChangePropertiesMenuForm.reset();
     arduinoDeleteMenuForm.reset();
     backgroundHide.style.display = "none";
-    currentArdunioUUID = null;
 }
 
 function changeMenuState(menuelement) {
@@ -168,7 +224,7 @@ function changeMenuState(menuelement) {
 }
 
 function openContextMenu(uuid) {
-    currentArdunio = uuid;
+    currentArdunioUUID = uuid;
     changeMenuState(arduinoOptionsMenu);
 }
 
@@ -261,7 +317,7 @@ arduinoCreateMenuForm.addEventListener("submit", (event) => {
         arudnioCreateMenuFormLocation.classList.add("input-outline--green"); 
 
         sendJSONToBackend("http://127.0.0.1:3300/api/arduino/create/",
-         {name: arudnioCreateMenuFormName, location: arudnioCreateMenuFormLocation, lastseen: "00:00"},
+         {name: arudnioCreateMenuFormName.value, location: arudnioCreateMenuFormLocation.value, lastseen: "00:00"},
          "Ardunio wird erstellt");
         closeAllMenus();
         arudnioCreateMenuFormName.classList.remove("input-outline--green");
@@ -269,6 +325,56 @@ arduinoCreateMenuForm.addEventListener("submit", (event) => {
     }
 })
 
+const ardunioDeleteForm = document.querySelector("#arduino-delete-menu__form");
+const ardunioDeleteFormButton = document.querySelector("#arduino-delete-menu-button-delete");
 const arduinoDeleteMenuFormNameInput = document.querySelector("[name='delete-arduino-name']");
 
-//arduinoDeleteMenuFormNameInput.addEventListener("")
+async function deleteArdunio(url, displayMessage) {
+    try {
+        displayLoader(displayMessage, false);
+        const reponse = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: '{"test": "mest"}'
+        })
+        hideLoader();
+        return reponse;
+    } catch (error) {
+        displayLoader("Keine Verbindung zum Server!", true);
+        console.error(error)
+        return error;
+    }
+}
+
+ardunioDeleteForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    console.log("delete awdawdawdawd")
+    console.log(currentArdunioUUID)
+
+    try {
+        displayLoader("Arduino wird gelöscht", false);
+        const response = await fetch(`http://127.0.0.1:3300/api/arduino/delete?uuid=${currentArdunioUUID}`, {method: 'POST'})
+        hideLoader();
+        //return reponse;
+    } catch (error) {
+        displayLoader("Keine Verbindung zum Server!", true);
+        console.error(error)
+        //return error;
+    }
+})
+
+arduinoDeleteMenuFormNameInput.addEventListener("input", () => {
+    const name = document.querySelectorAll(`.${currentArdunioUUID}-info`)[0].innerText;
+
+    if(arduinoDeleteMenuFormNameInput.value === name) {
+        ardunioDeleteFormButton.setAttribute("type", "submit")
+        ardunioDeleteFormButton.classList.remove("button-red--grayed");
+        ardunioDeleteFormButton.classList.add("button-red");
+    } else {
+        ardunioDeleteFormButton.setAttribute("type", "button")
+        ardunioDeleteFormButton.classList.remove("button-red");
+        ardunioDeleteFormButton.classList.add("button-red--grayed");
+    }
+})

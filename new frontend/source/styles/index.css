@@ -43,7 +43,7 @@ body {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
-  margin-right: 37px;
+  margin-right: 2.3125rem;
 }
 
 .heading-1 {
@@ -58,8 +58,8 @@ body {
   -ms-grid-row: 1;
   grid-row: 1;
   background-color: white;
-  border-radius: 0.5rem;
-  height: 28px;
+  border-radius: .5rem;
+  height: 1.75rem;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -76,31 +76,31 @@ body {
 }
 
 .status-info p {
-  font-size: 16px;
+  font-size: 1rem;
   font-family: "poppins medium";
 }
 
 .status-info--error {
   background-color: #FF6A6A !important;
   color: white !important;
-  font-size: 16px;
+  font-size: 1rem;
   font-family: "poppins medium";
 }
 
 .status-info--animate .status-info__animation-section {
   width: 100%;
-  height: 3px;
+  height: .1875rem;
   position: relative;
   overflow: hidden;
   background-color: #7DD68E;
-  border-radius: 20px;
+  border-radius: 1.25rem;
 }
 
 .status-info--animate .status-info__animation-section:before {
   content: "";
   position: absolute;
   left: -50%;
-  height: 3px;
+  height: .1875rem;
   width: 40%;
   background-color: white;
   -webkit-animation: lineAnim 1s linear infinite;
@@ -138,9 +138,9 @@ body {
 .arduino-overview-table {
   background-color: #3B415A;
   border-radius: 1rem;
-  overflow: auto;
-  -webkit-box-shadow: 0px 3px 6px #00000016;
-          box-shadow: 0px 3px 6px #00000016;
+  overflow: hidden;
+  -webkit-box-shadow: 0rem .1875rem .375rem #00000016;
+          box-shadow: 0rem .1875rem .375rem #00000016;
 }
 
 .arduino-overview-table table {
@@ -150,12 +150,12 @@ body {
 
 .arduino-overview-table table thead {
   width: 100%;
-  height: 61px;
+  height: 3.8125rem;
   background-color: white;
 }
 
 .arduino-overview-table table thead th {
-  width: 163px;
+  width: 10.1875rem;
   text-align: left;
 }
 
@@ -175,32 +175,32 @@ body {
 }
 
 .arduino-overview-table table thead th:first-child {
-  padding-left: 51px;
+  padding-left: 3.1875rem;
 }
 
 .arduino-overview-table table thead th:last-child {
   text-align: right;
-  padding-right: 37px;
+  padding-right: 2.3125rem;
 }
 
 .arduino-overview-table table tbody .table-row {
-  height: 56px;
+  height: 3.5rem;
 }
 
 .arduino-overview-table table tbody .table-row .table-data-general {
-  font-size: 18px;
+  font-size: 1.125rem;
   text-align: left;
   color: white;
   font-family: "poppins medium";
 }
 
 .arduino-overview-table table tbody .table-row .table-data-general:first-child {
-  padding-left: 51px;
+  padding-left: 3.1875rem;
 }
 
 .arduino-overview-table table tbody .table-row .table-data-general:last-child {
   text-align: right;
-  padding-right: 37px;
+  padding-right: 2.3125rem;
 }
 
 .arduino-overview-table table tbody .table-row:hover {
@@ -225,11 +225,11 @@ body {
   background: none;
   outline: none;
   border: none;
-  border-radius: 0.5rem;
-  font-size: 22px;
+  border-radius: .5rem;
+  font-size: 1.375rem;
   font-family: "poppins medium";
-  letter-spacing: 0.064px;
-  height: 38px;
+  letter-spacing: .004rem;
+  height: 2.375rem;
   width: 8rem;
   color: white;
 }
@@ -247,12 +247,13 @@ body {
 
 .button-red {
   background-color: #FF6A6A;
-  -webkit-box-shadow: 0px 3px 6px #00000016;
-          box-shadow: 0px 3px 6px #00000016;
+  -webkit-box-shadow: 0rem .1875rem .375rem #00000016;
+          box-shadow: 0rem .1875rem .375rem #00000016;
+  border: 0.125rem solid #FF6A6A;
 }
 
 .button-red:hover {
-  border: 2px solid #FF6A6A;
+  border: 0.125rem solid #FF6A6A;
   color: #FF6A6A;
 }
 
@@ -263,12 +264,12 @@ body {
 
 .button-green {
   background-color: #7DD68E;
-  -webkit-box-shadow: 0px 3px 6px #00000016;
-          box-shadow: 0px 3px 6px #00000016;
+  -webkit-box-shadow: 0rem .1875rem .375rem #00000016;
+          box-shadow: 0rem .1875rem .375rem #00000016;
 }
 
 .button-green:hover {
-  border: 2px solid #7DD68E;
+  border: 0.125rem solid #7DD68E;
   color: #7DD68E;
 }
 
@@ -280,8 +281,8 @@ body {
 .button-white {
   background-color: white;
   color: #3B415A !important;
-  -webkit-box-shadow: 0px 3px 6px #00000016;
-          box-shadow: 0px 3px 6px #00000016;
+  -webkit-box-shadow: 0rem .1875rem .375rem #00000016;
+          box-shadow: 0rem .1875rem .375rem #00000016;
 }
 
 .button-white:hover {
@@ -295,14 +296,14 @@ body {
 }
 
 .button-purple {
-  border: 2px solid #6B2BD1;
+  border: 0.125rem solid #6B2BD1;
   background-color: #6B2BD1;
-  -webkit-box-shadow: 0px 3px 6px #00000016;
-          box-shadow: 0px 3px 6px #00000016;
+  -webkit-box-shadow: 0rem .1875rem .375rem #00000016;
+          box-shadow: 0rem .1875rem .375rem #00000016;
 }
 
 .button-purple:hover {
-  border: 2px solid #6B2BD1;
+  border: 0.125rem solid #6B2BD1;
   color: #6B2BD1;
 }
 
@@ -317,8 +318,8 @@ body {
   outline: none;
   border: none;
   text-align: center;
-  padding: 0.3rem;
-  font-size: 20px;
+  padding: .3rem;
+  font-size: 1.25rem;
   color: white;
 }
 
@@ -331,8 +332,8 @@ body {
   width: 19.3125rem;
   height: 2rem;
   background-color: white;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1.375rem;
+  border-radius: .5rem;
+  padding: .5rem 1.375rem;
   font-family: "poppins medium";
 }
 
@@ -367,16 +368,16 @@ body {
 .menu-general {
   position: absolute;
   z-index: 200;
-  width: 364px;
-  top: 245px;
+  width: 22.75rem;
+  top: 15.3125rem;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
   border-radius: 1rem;
   background-color: #3B415A;
-  -webkit-box-shadow: 0px 3px 6px #00000016;
-          box-shadow: 0px 3px 6px #00000016;
+  -webkit-box-shadow: 0rem .1875rem .375rem #00000016;
+          box-shadow: 0rem .1875rem .375rem #00000016;
 }
 
 .menu-general-form {
@@ -396,11 +397,11 @@ body {
 }
 
 .menu-general-form input, .menu-general-form button {
-  margin-bottom: 18px;
+  margin-bottom: 1.125rem;
 }
 
 .menu-general-form .menu-general-button-container {
-  width: 309px;
+  width: 19.3125rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -414,8 +415,8 @@ body {
 }
 
 .arduino-options-menu {
-  width: 236px;
-  padding: 10px2;
+  width: 14.75rem;
+  padding: .625rem2;
 }
 
 .button-red--grayed {
@@ -436,10 +437,10 @@ body {
 .widget-info {
   background-color: #3B415A;
   border-radius: 1rem;
-  -webkit-box-shadow: 0px 3px 6px #00000016;
-          box-shadow: 0px 3px 6px #00000016;
-  padding-top: 24px;
-  padding-bottom: 24px;
+  -webkit-box-shadow: 0rem .1875rem .375rem #00000016;
+          box-shadow: 0rem .1875rem .375rem #00000016;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
   color: white;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -455,11 +456,11 @@ body {
 
 .widget-info .widget-info__value {
   font-family: "poppins semibold";
-  letter-spacing: 0.64px;
+  letter-spacing: .04rem;
 }
 
 .widget-info .widget-info__unit {
-  font-size: 1.142rem;
+  font-size: 18.272px;
   font-family: "poppins semibold";
 }
 
@@ -469,14 +470,14 @@ body {
 }
 
 .widget-gauge .widget-info__gauge {
-  -webkit-transform: translateY(-3rem);
-          transform: translateY(-3rem);
-  height: 40px;
-  width: 40px;
+  -webkit-transform: translateY(-48px);
+          transform: translateY(-48px);
+  height: 2.5rem;
+  width: 2.5rem;
   border-radius: 50%;
-  font-size: 32px;
+  font-size: 2rem;
   font-family: "poppins semibold";
-  letter-spacing: 0.64px;
+  letter-spacing: .04rem;
   /*
         background: 
         radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
@@ -489,8 +490,8 @@ body {
 
 .widget-humidity {
   place-self: end center;
-  width: 234px;
-  height: 132px;
+  width: 14.625rem;
+  height: 8.25rem;
 }
 
 .widget-info__value--focus {
@@ -505,15 +506,23 @@ body {
   color: #FFD76A;
 }
 
+.data-update {
+  -webkit-animation: update 3s ease-in 1;
+          animation: update 3s ease-in 1;
+}
+
 @-webkit-keyframes update {
   0% {
-    color: white;
+    opacity: 0%;
+    color: #7DD68E;
   }
   25% {
+    opacity: 75%;
     color: #7DD68E;
   }
   75% {
-    color: #7DD68E;
+    opacity: 100%;
+    color: white;
   }
   100% {
     color: white;
@@ -522,13 +531,16 @@ body {
 
 @keyframes update {
   0% {
-    color: white;
+    opacity: 0%;
+    color: #7DD68E;
   }
   25% {
+    opacity: 75%;
     color: #7DD68E;
   }
   75% {
-    color: #7DD68E;
+    opacity: 100%;
+    color: white;
   }
   100% {
     color: white;
