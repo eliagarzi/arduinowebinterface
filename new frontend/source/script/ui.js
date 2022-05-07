@@ -187,18 +187,11 @@ let allMenus = [
     arduinoChangePropertiesMenu,
 ]
 
-const arduinoCreateMenuForm = document.querySelector("#arduino-create-menu__form");
-const arduinoDeleteMenuForm = document.querySelector("#arduino-delete-menu__form");
-const arduinoChangePropertiesMenuForm = document.querySelector("#arduino-change-properties-menu__form");
-
 function closeAllMenus() {
-    for(let e in allMenus) {
-        allMenus[e].style.display = "none"; 
-    }
-    arduinoCreateMenuForm.reset();
-    arduinoChangePropertiesMenuForm.reset();
-    arduinoDeleteMenuForm.reset();
+    for(e in allMenus) {
+        allMenus[e].style.display = "none";    }
     backgroundHide.style.display = "none";
+    currentArdunio = null;
 }
 
 function changeMenuState(menuelement) {
@@ -214,8 +207,9 @@ function changeMenuState(menuelement) {
     }
 }
 
+
 function openContextMenu(uuid) {
-    currentArdunioUUID = uuid;
+    currentArdunio = uuid;
     changeMenuState(arduinoOptionsMenu);
 }
 
