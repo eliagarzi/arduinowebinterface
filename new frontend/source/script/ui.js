@@ -1,4 +1,5 @@
 /*
+packen über snowpack
 import { io } from "socket.io-client";
 */
 
@@ -23,19 +24,12 @@ const ardunioInitInfo = document.querySelector(".ardunio-init-info");
 socket.on("ardunio-init-data", (data) => {
     //console.log(data)
 
-    if(data.init) {
-        ardunioTableBody.style = "none";
-        ardunioInitInfo.style = "block";
-    } else {
-        ardunioInitInfo.style = "none";
-        ardunioTableBody.style = "block";
         localArdunioStore = data;
         //console.log(data[0].info)
     
         for(let i in data) {
             createArdunioInDom(data[i])
         }
-    }
 })    
 
 socket.on("ardunio-create-event", (data) => {
@@ -63,19 +57,16 @@ const ardunioTable = document.querySelector(".arduino-overview-table__body");
 
 function deleteArdunioInDom(data) {
     let currentUUID = data.uuid;
-    const ardunioRowElement = document.querySelector(`.${currentUUID}-row`);
+    const ardunioRowElement = document.querySelector(`.row-${currentUUID}`);
     ardunioTable.removeChild(ardunioRowElement)
 }
 
 function createArdunioInDom(data) {
     let currentUUID = data.uuid;
 
-    //######################################################Wird eher nicht mehr gebraucht
-    //let dataNames = ["temperature", "humidity", "pressure", "hue"]
-
     let newArdunioRowElement = document.createElement("tr");
     newArdunioRowElement.classList.add("table-row");
-    newArdunioRowElement.classList.add(`${currentUUID}-row`)
+    newArdunioRowElement.classList.add(`row-${currentUUID}`)
 
     let counter = 0;
 
@@ -83,7 +74,7 @@ function createArdunioInDom(data) {
         let newArdunioTableDataElement = document.createElement("td");
         newArdunioTableDataElement.textContent = data.info[elementValue];
         newArdunioTableDataElement.classList.add(`table-data-general`)
-        newArdunioTableDataElement.classList.add(`${currentUUID}-info`)
+        newArdunioTableDataElement.classList.add(`info-${currentUUID}`)
         newArdunioRowElement.appendChild(newArdunioTableDataElement);
     } 
 
@@ -96,7 +87,7 @@ function createArdunioInDom(data) {
             counter++;
         }
         newArdunioTableDataElement.classList.add(`table-data-general`)
-        newArdunioTableDataElement.classList.add(`${currentUUID}-data`)
+        newArdunioTableDataElement.classList.add(`data-${currentUUID}`)
         newArdunioRowElement.appendChild(newArdunioTableDataElement);
     } 
 
@@ -117,7 +108,7 @@ function updateArdunioInDom(data) {
     let currentUUID = data.uuid;
     let newData = data.data;
 
-    const ardunioTableDataElements = document.querySelector(`#${currentUUID}-info`)
+    const ardunioTableDataElements = document.querySelector(`#info-${currentUUID}`)
 
     for(let childElementIndex in ardunioTableDataElements) {
         if(ardunioTableDataElements[childElementIndex].textContent !== newData[childElementIndex]) {
@@ -131,7 +122,7 @@ function updateArdunioDataInDom(data) {
     let currentUUID = data.uuid;
     let currentData = data.data;
 
-    const ardunioTableDataElements = document.querySelectorAll(`.${currentUUID}-data`)
+    const ardunioTableDataElements = document.querySelectorAll(`.data-${currentUUID}`)
 
     console.log(currentData)
     console.log(data.data)
@@ -357,6 +348,7 @@ ardunioDeleteForm.addEventListener("submit", async (e) => {
         displayLoader("Arduino wird gelöscht", false);
         const response = await fetch(`http://127.0.0.1:3300/api/arduino/delete?uuid=${currentArdunioUUID}`, {method: 'POST'})
         hideLoader();
+        closeAllMenus();
         //return reponse;
     } catch (error) {
         displayLoader("Keine Verbindung zum Server!", true);
@@ -366,7 +358,7 @@ ardunioDeleteForm.addEventListener("submit", async (e) => {
 })
 
 arduinoDeleteMenuFormNameInput.addEventListener("input", () => {
-    const name = document.querySelectorAll(`.${currentArdunioUUID}-info`)[0].innerText;
+    const name = document.querySelectorAll(`.info-${currentArdunioUUID}`)[0].innerText;
 
     if(arduinoDeleteMenuFormNameInput.value === name) {
         ardunioDeleteFormButton.setAttribute("type", "submit")

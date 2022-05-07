@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  nginx:
+    container_name: proxy
+    build: ./nginx
+    restart: always
+    ports: 
+      - 443:443
+
+  redis_server:
+    container_name: mysql-server
+    image: redis
+    hostname: redisserver
+    restart: always
+    ports:
+      - 6379:6379
+
+  api:  
+    container_name: api
+    depends_on:
+      - redis_server
+      - nginx_proxy
+    build: ./Server
+    restart: always
+    ports:
+      - 80:80
+

@@ -8,6 +8,7 @@ const cors = require("cors");
 const redis = require("redis");
 const crypto = require("crypto");
 const events = require('events');
+const { ServerResponse } = require("http");
 
 //const { createAdapter } = require("@socket.io/redis-adapter");
 
@@ -446,6 +447,26 @@ server.get("/api/data/", checkQuery, checkAuth, async(req, res) => {
             }
         } catch (error) {
             console.log(error)
+            res.sendStatus(504)
+        }
+    } else {
+        res.sendStatus(404)
+    }
+})
+
+server.get("/login/", async (req, res) => {
+
+})
+
+server.post("/login/reset", async (req, res) => {
+    let currentEmail = req.query.email;
+    if(currentEmail != undefined) {
+        let token = crypto.randomBytes(35);
+        try {
+            await redisClient.set(token, req.query.email, 'EX', 60 * 10)
+
+            //Send Mail
+        } catch {
             res.sendStatus(504)
         }
     } else {
