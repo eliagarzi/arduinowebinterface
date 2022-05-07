@@ -8,8 +8,6 @@
         <meta name="tags" content="Arduino Dashboard">
         
         <link rel="stylesheet" href="./source/styles/index.css">
-
-        <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
     </head>
     <body>
 
@@ -19,19 +17,12 @@
             <button class="header__button button-general button-white" id="button-logout">Logout</button>
         </header>
 
-        <div class="status-info" style="display: none;">
-            <p class="status-info__message">Info</p>
-            <div class="status-info__animation-section"></div>
-        </div>
-
-        <div class="status-info-finished" style="display: none;">
-            <p></p>
+        <div class="status-info">
+            <p>Info</p>
+            <div class="status-info__animation"></div>
         </div>
 
         <section class="arduino-overview-table">
-            <div class="ardunio-init-info" style="display: none;">
-                <p>Es wurden noch keine Ardunios erstellt!</p>
-            </div>
             <table>
                 <thead>
                     <tr class="arduino-overview-table__header arduino-overview-table-row-top">
@@ -45,7 +36,137 @@
                         <th><button class="arduino-overview-table__name-button button-general button-purple" id="button-create" type="button">Create</button></th>
                     </tr>
                 </thead>
-                <tbody class="arduino-overview-table__body" style="display: none;">
+                <tbody class="arduino-overview-table__body">
+                    <tr class="table-row table-row--active" id="UUID">
+                        <td class="table-data-general">GULP 62</td>
+                        <td class="table-data-general">Zürich 123  </td>
+                        <td class="table-data-general">19:23 1.2.2022</td>
+                        <td class="table-data-general">32°</td>
+                        <td class="table-data-general">25%</td>
+                        <td class="table-data-general">2.5 hPA</td>
+                        <td class="table-data-general">203 l</td>
+                        <td class="table-data-general"><button class="button-table" id="">&#8226;&#8226;&#8226;</button></td>
+                    </tr>
+                    <tr class="table-row" id="UUID">
+                        <td class="table-data-general">GULP 62</td>
+                        <td class="table-data-general">Zürich 123  </td>
+                        <td class="table-data-general">19:23 1.2.2022</td>
+                        <td class="table-data-general">32°</td>
+                        <td class="table-data-general">25%</td>
+                        <td class="table-data-general">2.5 hPA</td>
+                        <td class="table-data-general">203 l</td>
+                        <td class="table-data-general"><button class="button-table" id="2" onclick="openContextMenu(2)">&#8226;&#8226;&#8226;</button></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                    </tr>   
+                    <tr class="table-row">
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                        <td class="table-data-general"></td>
+                    </tr>
                 </tbody>
             </table>
         </section>
@@ -94,9 +215,9 @@
         </div>
 
         <div class="arduino-create-menu menu-general" id="arduino-create-menu" style="display: none;">
-            <form class="menu-general-form" id="arduino-create-menu__form">
-                <input class="input-general" name="new-arduino-name" type="text" placeholder="Device Name*">
-                <input class="input-general" name="new-arduino-location" type="text" placeholder="Location*">
+            <form class="menu-general-form">
+                <input class="input-general" name="new-arduino-name" type="text" required placeholder="Device Name*">
+                <input class="input-general" name="new-arduino-location" type="text" required placeholder="Location*">
                 <div class="menu-general-button-container">
                     <button class="button-general button-white" id="arduino-create-menu-button-cancel" type="button">Cancel</button>
                     <button class="button-general button-green" id="arduino-create-menu-button-create" type="submit">Create</button>   
@@ -113,17 +234,17 @@
         </div>
 
         <div class="arduino-delete-menu menu-general" id="arduino-delete-menu" style="display: none;">
-            <form class="menu-general-form" id="arduino-delete-menu__form">
+            <form class="menu-general-form">
                 <input class="input-general" name="delete-arduino-name" type="text" required placeholder="Type name to delete*">
                 <div class="menu-general-button-container">
                     <button class="button-general button-white" id="arduino-delete-menu-button-cancel" type="button">Cancel</button>
-                    <button class="button-general button-red--grayed" id="arduino-delete-menu-button-delete">Delete</button>
+                    <button class="button-general button-red" id="arduino-delete-menu-button-delete" type="submit">Delete</button>
                 </div>
             </form>
         </div>
 
         <div class="arduino-change-properties-menu menu-general" id="arduino-change-properties-menu" style="display: none;">
-            <form class="menu-general-form" id="arduino-change-properties-menu__form">
+            <form class="menu-general-form">
                 <input class="input-general" name="change-arduino-name" type="text" required placeholder="Device Name">
                 <input class="input-general" name="change-arduino-location" type="text" required placeholder="Location">
                 <div class="menu-general-button-container">

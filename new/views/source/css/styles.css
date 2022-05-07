@@ -1,0 +1,390 @@
+:root {
+  --root-font-size: 10px;
+  --body-background-color: hsl(225, 39%, 12%);
+  --primary-text-color: hsl(0, 0%, 100%);
+  --secondary-text-color: hsl(0, 0%, 60%);
+  --element-background-color: hsl(224, 46%, 17%);
+  --element-background-color-shadow: hsl(210, 42%, 17%);
+  --button-color-green: hsl(140, 49%, 48%);
+  --button-color-green-hover: hsl(100, 49%, 48%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+button {
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  background-color: var(--button-color-green);
+  color: var(--primary-text-color);
+  font-size: 15rem;
+  height: 28px;
+  width: 55px;
+  border-radius: 25px;
+}
+
+html, body {
+  font-size: 1px;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 12% 88%;
+      grid-template-rows: 12% 88%;
+  background-color: var(--body-background-color);
+}
+
+header {
+  height: 100%;
+  width: 100%;
+  padding: 2% 0% 0% 2%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+}
+
+header .header-element {
+  color: white;
+  font-size: 10rem;
+}
+
+header .header-element:last-child {
+  margin-left: 1%;
+}
+
+header .header-element__new-arduino-button {
+  width: 100px !important;
+  background-color: var(--button-color-green);
+}
+
+header .header-element__new-arduino-button:hover {
+  -webkit-transition: all 100ms;
+  transition: all 100ms;
+  background-color: var(--button-color-green-hover);
+}
+
+.overview {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 20% 80%;
+      grid-template-rows: 20% 80%;
+  -ms-grid-columns: 1;
+      grid-template-columns: 1;
+  padding-left: 2%;
+}
+
+.overview-header {
+  width: 100%;
+  grid: 1/1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.overview-header .overview-header__element {
+  margin-right: 1%;
+  padding: 1%;
+  width: 100px;
+  height: 100px;
+  border-radius: 10%;
+  background-color: var(--element-background-color);
+  -webkit-box-shadow: 5px 1px 24px -5px rgba(0, 0, 0, 0.75);
+          box-shadow: 5px 1px 24px -5px rgba(0, 0, 0, 0.75);
+  color: var(--primary-text-color);
+}
+
+.overview-header .overview-header__element .overview-header__element--title {
+  font-size: 11rem;
+  color: white;
+}
+
+.overview-header .overview-header__element .overview-header__element--value {
+  font-size: 15rem;
+  font-weight: 900;
+}
+
+.overview-header .overview-header__element .overview-header__element--trend {
+  font-size: 11rem;
+  color: #3eb658;
+}
+
+.overview-header .overview-header__element:hover {
+  -webkit-transition: all 500ms;
+  transition: all 500ms;
+  background-color: #373e55;
+  -webkit-box-shadow: 5px 1px 24px -5px rgba(0, 0, 0, 0.9);
+          box-shadow: 5px 1px 24px -5px rgba(0, 0, 0, 0.9);
+}
+
+.arduino-table {
+  grid: 2/1;
+  background-color: #17223f;
+  width: 900px;
+  height: 400px;
+  -webkit-box-shadow: 5px 1px 24px -5px rgba(0, 0, 0, 0.75);
+          box-shadow: 5px 1px 24px -5px rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+}
+
+.arduino-table table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.arduino-table table tr:nth-child(odd) {
+  background-color: #233658;
+}
+
+.arduino-table table tr {
+  width: 100%;
+  height: 40px;
+}
+
+.arduino-table table tr th, .arduino-table table tr td {
+  color: white;
+  padding-left: 1%;
+  text-align: start;
+}
+
+.arduino-table table tr th {
+  font-weight: 900;
+  font-size: 15rem;
+}
+
+.arduino-table table tr td {
+  font-size: 12rem;
+}
+
+.arduino-elements {
+  width: 250px;
+  height: 400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-shadow: 5px 1px 24px -5px rgba(0, 0, 0, 0.75);
+          box-shadow: 5px 1px 24px -5px rgba(0, 0, 0, 0.75);
+}
+
+.arduino-elements p {
+  font-size: 20rem;
+}
+
+.arduino-elements .arduino-element--header {
+  height: 10%;
+  width: 100%;
+  padding: 3%;
+  background-color: #17223f;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  border-radius: 15px 15px 0 0;
+}
+
+.arduino-elements .arduino-element--header .arduino-element--header-element-button-delete {
+  background-color: #eb3333;
+}
+
+.arduino-elements .arduino-element--body {
+  height: 90%;
+  width: 100%;
+  padding: 3%;
+  background-color: #17223f;
+  border-radius: 0 0 15px 15px;
+}
+
+.new-arduino-menu--blur {
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(43, 43, 43, 0.411);
+  -webkit-backdrop-filter: blur(200px);
+          backdrop-filter: blur(200px);
+}
+
+.new-arduino-menu {
+  background-color: white;
+  position: absolute;
+  display: none;
+  width: 350px;
+  height: 390px;
+  border-radius: 3px;
+  top: 20%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2%;
+  font-size: 20rem;
+}
+
+.new-arduino-menu .new-arduino-menu__header {
+  color: black;
+  font-size: 15rem;
+}
+
+.new-arduino-menu .new-arduino-menu__body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+}
+
+.new-arduino-menu .new-arduino-menu__body form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+}
+
+.new-arduino-menu .new-arduino-menu__body form .form-element {
+  margin-top: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.new-arduino-menu .new-arduino-menu__body form .form-element label {
+  font-size: 15rem;
+  color: #5e5e5e;
+}
+
+.new-arduino-menu .new-arduino-menu__body form .form-element input {
+  height: 30px;
+}
+
+.new-arduino-menu .new-arduino-menu__body form .form-token {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+}
+
+.new-arduino-menu .new-arduino-menu__body form .form-token p {
+  font-size: 20rem;
+  color: #3eb658;
+}
+
+.new-arduino-menu .new-arduino-menu__body form .form-token button {
+  margin: auto;
+}
+
+.new-arduino-menu .new-arduino-menu__body form .form-token button img {
+  display: block;
+}
+
+.new-arduino-menu .new-arduino-menu__body form .form-submit {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.new-arduino-menu .new-arduino-menu__body form .form-submit button {
+  width: 130px !important;
+  background-color: #3eb658;
+}
+
+.dashboard-info {
+  position: absolute;
+  display: block;
+  height: 45px;
+  width: 100%;
+  top: 0%;
+  left: 0%;
+}
+
+.dashboard-info .dashboard-info__text {
+  grid-row-start: 1/1;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  font-size: 15rem;
+  overflow: hidden;
+  width: 100%;
+  height: 85%;
+  background-color: #ff7b00;
+  border-radius: 0;
+}
+
+.dashboard-info .dashboard-info__status {
+  width: 100%;
+  height: 15%;
+  overflow: hidden;
+  grid-row-start: 2/2;
+  background-color: #ff7b00;
+  border-radius: 0 0 10px 10px;
+  -webkit-animation-name: animateLoading;
+          animation-name: animateLoading;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+}
+
+@-webkit-keyframes animateLoading {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes animateLoading {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+/*# sourceMappingURL=styles.css.map */

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Arduino Dashboard</title>
+        <meta name="description" content="Dashboard für Arduino API">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./source/css/login.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap" rel="stylesheet"> 
+    </head>
+    <body>
+
+        <header>
+
+            <div class="header-element">
+
+                <h1>Arduino Dashboard</h1>
+
+            </div>
+
+            <div class="header-element">
+
+                <button class="header-element__new-arduino-button">New Arduino</button>
+
+            </div>
+
+        </header>
+
+        <div class="overview">
+
+            <div class="overview-header">
+
+                <div class="overview-header__element overview-header__arduino-count">
+                    <p class="overview-header__element--title">Count</p>
+                    <p class="overview-header__element--value">34</p>
+                </div>
+                
+                <div class="overview-header__element overview-header__arduino-avgtmp">
+                    <p class="overview-header__element--title">Avg. Temp</p>
+                    <p class="overview-header__element--value">56</p>
+                    <p class="overview-header__element--trend">^14%</p>
+                </div>
+
+                <div class="overview-header__element overview-header__arduino-avghum">
+                    <p class="overview-header__element--title">Avg Hum</p>
+                    <p class="overview-header__element--value">47%</p>
+                </div>
+                
+                <div class="overview-header__element overview-header__arduino-avgpress">
+                    <p class="overview-header__element--title">Avg Pressure</p>
+                    <p class="overview-header__element--value">23</p>
+                </div>
+
+            </div>
+
+            <div class="arduino-table">
+
+                <table>
+
+                    <tr>
+                        <th>Arduino</th>
+                        <th>Temperatur</th>
+                        <th>Luftfeuchtigkeit</th>
+                        <th>Luftdruck</th>
+                        <th>Token</th>
+                        <th>Last Seen</th>
+                        <th>LED</th>
+                    </tr>
+
+                    <tr>
+                        <td>Zürich</td>
+                        <td>54</td>
+                        <td>45%</td>
+                        <td>23</td>
+                        <td>jOIJOAIWD</td>
+                        <td>23</td>
+                        <td>jOIJOAIWD</td>
+                    </tr>
+                    <tr>
+                        <td>TBZ</td>
+                        <td>23</td>
+                        <td>10%</td>
+                        <td>48</td>
+                        <td>OIJOAIWD+123</td>
+                        <td>23</td>
+                        <td>jOIJOAIWD</td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>  
+
+        <div class="new-arduino-menu--blur"></div>
+
+        <div class="new-arduino-menu">
+
+            <div class="new-arduino-menu__header">
+
+                <h2>Neuen Arduino erfassen</h2>
+
+            </div>
+
+            <div class="new-arduino-menu__body">
+                <form class="new-arduino-menu__forms">
+                    <div class="form-element form-name">
+                        <label for="name">Name</label>
+                        <input name="name" class="new-arduino-menu__forms-name" type="text" required>
+                    </div>
+
+                    <div class="form-element form-token">
+                        <label>Access Token</label>
+                        <div class="form-token-copy-token">
+                            <button type="button">
+                                <p>Token</p>
+                                <img src="/img/copy.png" alt="copy" height="15px" width="15px">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-element form-config-download">
+                        <a href="http://127.0.0.1:3000/api/ardunio/config/download" class="new-arduino-menu__forms--downloadconfig" type="link">Config herunterladen</a>
+                    </div>
+
+                    <div class="form-element form-submit">
+                        <button class="new-arduino-menu__forms--submitform" type="submit">Arduino Erstellen</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+
+        <div class="dashboard-info">
+
+            <div class="dashboard-info__text">
+                <p>
+                    Connection to API-Endpoint failed
+                </p>
+            </div>
+
+            <div class="dashboard-info__status">
+            </div>
+
+        </div>
+
+        <script src="./source/script/index.js" async defer></script>
+    </body>
+</html>
