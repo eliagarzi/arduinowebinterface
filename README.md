@@ -7,15 +7,13 @@ Funktionen der API:
 - Arduinos verwalten und erstellen
 - Arduinos ansprechen
 - Daten von arduino Mikrocontrollern empfangen
-- Loginsystem für User auf Basis von Session-basierter Authentifizierung
-- Arduino Authentifizierung auf Basis von JWT Tokens
 
 ## Genutze Technologien
 
 - Node.js JavaScript Runtime Environment
 - Express.js Backend Framework
 - JavaScript ES6
-- SQLite3
+- Redis
 - HTML5
 - CSS (Precompiler: SCSS)
 
@@ -24,11 +22,7 @@ Funktionen der API:
 Middleware / Middlewarefunktionen haben Zugriff auf das HTTP Request und HTTP Response Objekt im Request -> Reponse Zyklus.
 Middleware kann auf die Inhalte in Request und Reponse zugreiffen und sie verändern.
 
-**Middleware:**
-
-- Body-Parser (Macht den Body im HTTP Request Objekt lesbar und kompiliert diesen in verschiedene Formate wie JSON oder Text)
-  
 **NPM Pakete:**
 
-- Node-Cache (Caching von Key-Value Pairs in Node.js)
-- EJS (Server-Side Rendering mit Node.js)
+- RedisClient https://github.com/redis/node-redis
+- Socket.io https://socket.io/
