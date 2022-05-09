@@ -1,0 +1,5 @@
+node_modules
+source/styles/_components.scss
+source/styles/_fonts.scss
+source/styles/_variables.scss
+source/styles/index.scss

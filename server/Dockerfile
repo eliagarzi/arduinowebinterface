@@ -4,9 +4,9 @@ WORKDIR /app/
 
 RUN apt update 
 
-RUN cp . /app/
+COPY . /app/
 
-COPY package*.json ./
+COPY package*.json .
 
 RUN npm install
 

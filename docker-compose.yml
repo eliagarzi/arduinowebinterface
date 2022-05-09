@@ -3,13 +3,14 @@ version: "3.8"
 services:
   nginx:
     container_name: proxy
-    build: ./nginx
+    build: europe-west6-docker.pkg.dev/ardunio-api/docker-repo/api_frontend
     restart: always
     ports: 
       - 443:443
+      - 80:80
 
   redis_server:
-    container_name: mysql-server
+    container_name: redisserver
     image: redis
     hostname: redisserver
     restart: always
@@ -21,8 +22,9 @@ services:
     depends_on:
       - redis_server
       - nginx_proxy
-    build: ./Server
+    image: europe-west6-docker.pkg.dev/ardunio-api/docker-repo/api_backend
     restart: always
     ports:
-      - 80:80
+      - 80:3300
+      - 8090:3000
 
