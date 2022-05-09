@@ -15,7 +15,7 @@ Funktionen der API:
 - Node.js JavaScript Runtime Environment
 - Express.js Backend Framework
 - JavaScript ES6
-- SQLite3
+- Redis
 - HTML5
 - CSS (Precompiler: SCSS)
 
@@ -30,5 +30,5 @@ Middleware kann auf die Inhalte in Request und Reponse zugreiffen und sie verän
   
 **NPM Pakete:**
 
-- Node-Cache (Caching von Key-Value Pairs in Node.js)
-- EJS (Server-Side Rendering mit Node.js)
+- Socket.io 
+- RedisClient
