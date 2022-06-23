@@ -1,2 +1,7 @@
-api/node_modules
+server/node_modules
 frontend/node_modules
+frontend/source/styles/index.css
+frontend/source/styles/index.css.map
+frontend/source/styles/login.css
+frontend/source/styles/login.css.map
+todo.md
