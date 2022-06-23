@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>arduino Login</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./source/css/styles.css">
+    </head>
+    <body>
+
+        <div class="register-info" style="display: none;">
+            <button class="register-info__close-window">close</button>
+            <p></p>
+        </div>
+
+        <div class="register-header">
+            <p>Login System</p>
+        </div>
+
+        <div class="register-menu">
+
+            <form class="register-form" style="display: block;">
+                
+                <div class="form-element form-header">
+                    <h1>Register</h1>
+                    <p>Try to login? 
+                    <a href="login"><strong>Login now</strong></a>
+                </p>   
+                </div>
+
+                <div class="form-element form-element__email">
+                    <label class="form-element__label">E-Mail</label>
+                    <input name="registeremail" class="form-element__input register-form-email" type="text">
+                </div>
+                
+                <div class="form-element form-element__password">
+                    <div class="form-element__password--elements">
+                        <label class="form-element__label">Password</label>
+                        <button type="button" class="show-password-button">
+                            <img class="show-password-button__image" src="/img/login/eye-closed.png" width="15px" height="15px">
+                            <strong class="show-password-button__text">Show</strong>
+                        </button> 
+                    </div>
+                    <input name="registerpassword" class="form-element__input register-form-password" type="password">
+                </div>
+
+                <div class="form-element form-element__password">
+                    <label class="form-element__label">Password</label>
+                    <input name="registerpasswordrepeat" class="form-element__input register-form-password-repeat" type="password">
+                </div>
+
+                <div class="form-element form-element__info" style="display: none;">
+                    <p></p>
+                </div>
+
+                <div class="form-element form-element-submit">
+                    <button type="submit" class="form-element__submit-button form-button">Login</button>
+                </div>
+
+            </form>
+        </div>
+        
+        <script src="./source/script/register.js" async defer></script>
+    </body>
+</html>
