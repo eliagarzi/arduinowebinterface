@@ -1,151 +1,239 @@
-/*
-packen über snowpack
-import { io } from "socket.io-client";
+const API_URL = "http://127.0.0.1:3001"
+let currentArduinoUUID;
 
-Folgendes ist der Source Code für das Frontend unserer Arduino API
-*/
+const widgetInfoValueTemperature = document.querySelector(".widget-info__value--temperature");
+const widgetInfoValueTemperatureTrend = document.querySelector(".widget-info__value--temperature--trend");
 
-let tableUnits = ["°", "%", "hPA", "l"]
+const widgetInfoValueHumidty = document.querySelector(".widget-info__value--humidity");
+const widgetInfoValueHumidtyTrend = document.querySelector(".widget-info__value--humidity--trend");
 
-const socket = io("https://127.0.0.1:3000")
+const widgetInfoValueActive = document.querySelector(".widget-info__value--active");
+const widgetInfoValueNotActive = document.querySelector(".widget-info__value--not-active");
 
-let localArdunioStore = {}
+const widgetInfoValuePressure = document.querySelector(".widget-info__value--pressure");
+const widgetInfoValueHue = document.querySelector(".widget-info__value--hue");
+
+const widgetValueElements = [widgetInfoValueTemperature, widgetInfoValueTemperatureTrend, widgetInfoValueHumidty, widgetInfoValueHumidtyTrend, widgetInfoValueActive, widgetInfoValueNotActive, widgetInfoValuePressure, widgetInfoValueHue]
+
+const gaugeTemperature = document.querySelector(".gauge-svg--temperature");
+const gaugeHumidity = document.querySelector(".gauge-svg--humidity");
+
+
+function defaultWidgetData() {
+    widgetValueElements.forEach(e => {
+        e.textContent = "0"
+    })
+    
+    gaugeTemperature.style.setProperty("--currentValue", "145")
+    gaugeHumidity.style.setProperty("--currentValue", "145")
+}
+
+//###########################################
+//Datenmodel in JSON beschreiben
+//###########################################
+
+function updateWidgetData(data) {
+    widgetValueElements.forEach(e => {
+        e.textContent = "0"
+    })
+    
+    gaugeTemperature.style.setProperty("--currentValue", "145")
+    gaugeHumidity.style.setProperty("--currentValue", "145")
+}
+
+defaultWidgetData();
+
+const statusInfo = document.querySelector(".status-info");
+const statusInfoMessage = document.querySelector(".status-info__message");
+const statusInfoAnimationSection = document.querySelector(".status-info__animation-section");
+
+function displayLoader(message, error) {
+    statusInfo.style.display = "flex";
+    if(error == true) {
+        statusInfo.classList.remove("status-info--animate")
+        statusInfo.classList.add("status-info--error")
+        statusInfo.style.backgroundcolor = "FF6A6A";
+    } else {
+        statusInfo.classList.remove("status-info--error")
+        statusInfo.classList.add("status-info--animate")
+    }
+    statusInfoMessage.textContent = message;
+}
+
+function hideLoader() {
+    statusInfo.style.display = "none";
+}
+
+let arduinoInitInfo = document.querySelector(".arduino-init-info");
+let arduinoInitInfoText = document.querySelector(".arduino-init-info--container__text");
+
+function showInitStatus(showStatus, message) {
+    if(showStatus == true) {
+        arduinoInitInfo.style.display = "block";
+        arduinoInitInfoText.textContent = message;
+    } else {
+        arduinoInitInfo.style.display = "none";
+    }
+}
+
+const socket = io("http://127.0.0.1:3000")
 
 socket.on("connection", () => {
-    console.log("Verbindung zum Socket.io Server aufgebaut")
-    //Connected to Websocket Server
+    hideLoader();
 })
 
 socket.on("disconnect", () => {
-    console.log("Verbindung zu Socket.io Server unterbrochen")
-    //Display websocket error
+    displayLoader("Keine Verbindung zum Server!", true)
+    showInitStatus(true, "Keine Verbindung zum Server!")
 })
 
-const ardunioTableBody = document.querySelector(".arduino-overview-table__body");
-const ardunioInitInfo = document.querySelector(".ardunio-init-info");
+let arduinoTableBody = document.querySelector(".arduino-overview-table__body");
 
-socket.on("ardunio-init-data", (data) => {
+        //################################
+        //Datenmodell in JSON beschreiben
+        //################################
 
-        localArdunioStore = data;
-    
+socket.on("arduino-init-data", (data) => {
+    hideLoader();
+    //If no data is returned it means there are no Arduinos in the database
+    if(data == null) {
+        arduinoTableBody.style.display = "none";
+        showInitStatus(true, "Es wurden noch keine Arduinos erfasst!")
+    } else if (data.error) {
+        console.error(error)
+        displayLoader(error, true)
+    } else {
+        arduinoInitInfo.style.display = "none";
+        arduinoTableBody.style.display = "table-footer-group";
+
+        //################################
+        //Durchschnitt aller Daten berechnen
+        //################################
+
         for(let i in data) {
-            createArdunioInDom(data[i])
+            createArduinoInDom(data[i])
         }
+    }
 })    
 
-//Eventhandler für die Socket.io Events
-socket.on("ardunio-create-event", (data) => {
-    createArdunioInDom(data);
+function testSocketConnection() {
+    //If 1500ms after the ui.js file has been loaded no socket connection is established, a error will be displayed
+    let timeout = setTimeout(() => {
+        if(!socket.connected) {
+            showInitStatus(true, "Keine Verbindung zum Server!")
+            displayLoader("Keine Verbidung zum Server!", true)
+        } else {
+            hideLoader();
+        }
+    }, 1500)
+}
+
+//Eventhandler for Socket.io event that are emitted by the server
+
+        //################################
+        //Datenmodell in JSON beschreiben
+        //################################
+
+socket.on("arduino-create-event", (data) => {
+    createArduinoInDom(data);
+    arduinoInitInfo.style.display = "none";
+    arduinoTableBody.style.display = "table-footer-group";
 })
 
-socket.on("ardunio-delete-event", (data) => {
-    deleteArdunioInDom(data);
+socket.on("arduino-delete-event", (data) => {
+    deleteArduinoInDom(data);
 })
 
-socket.on("ardunio-update-event", (data) => {
-    updateArdunioInDom(data);
+socket.on("arduino-update-event", (data) => {
+    updateArduinoInDom(data);
 })
 
 socket.on("data-update-event", (data) => {
-    console.log(data.data)
-    updateArdunioDataInDom(data);
+    updateArduinoDataInDom(data);
+    updateWidgetData(data);
 })  
 
-socket.on("error-event", () => {
-    console.log("Fehler mit Socket.io Verbindung")
-})
+const arduinoTable = document.querySelector(".arduino-overview-table__body");
 
-const ardunioTable = document.querySelector(".arduino-overview-table__body");
-
-//Löscht Ardunio aus dem HTML DOM
-function deleteArdunioInDom(data) {
-    let currentUUID = data.uuid;
-    const ardunioRowElement = document.querySelector(`.row-${currentUUID}`);
-    ardunioTable.removeChild(ardunioRowElement)
+//Deletes Arduino DOM element
+function deleteArduinoInDom(data) {
+    const arduinoRowElement = document.querySelector(`.row-${data.uuid}`);
+    arduinoTable.removeChild(arduinoRowElement)
 }
 
-//Erstellt Ardunio im HTML DOM
-function createArdunioInDom(data) {
-    let currentUUID = data.uuid;
+const tableUnits = ["°", "%", "hPA", "l"]
 
-    let newArdunioRowElement = document.createElement("tr");
-    newArdunioRowElement.classList.add("table-row");
-    newArdunioRowElement.classList.add(`row-${currentUUID}`)
+//Creates Arduino in DOM
+function createArduinoInDom(data) {
+    const currentUUID = data.uuid;
+
+    let newArduinoRowElement = document.createElement("tr");
+    newArduinoRowElement.classList.add("table-row");
+    newArduinoRowElement.classList.add(`row-${currentUUID}`)
 
     let counter = 0;
 
     for(let elementValue in data.info) {
-        let newArdunioTableDataElement = document.createElement("td");
-        newArdunioTableDataElement.textContent = data.info[elementValue];
-        newArdunioTableDataElement.classList.add(`table-data-general`)
-        newArdunioTableDataElement.classList.add(`info-${currentUUID}`)
-        newArdunioRowElement.appendChild(newArdunioTableDataElement);
+        let newArduinoTableDataElement = document.createElement("td");
+        newArduinoTableDataElement.textContent = data.info[elementValue];
+        newArduinoTableDataElement.classList.add(`table-data-general`)
+        newArduinoTableDataElement.classList.add(`info-${currentUUID}`)
+        newArduinoRowElement.appendChild(newArduinoTableDataElement);
     } 
 
     for(let elementValue in data.data) {
-        let newArdunioTableDataElement = document.createElement("td");
+        let newArduinoTableDataElement = document.createElement("td");
         if(data.data[elementValue] == "-") {
-            newArdunioTableDataElement.textContent = data.data[elementValue];
+            newArduinoTableDataElement.textContent = data.data[elementValue];
         } else {
-            newArdunioTableDataElement.textContent = data.data[elementValue]+" "+tableUnits[counter];
+            newArduinoTableDataElement.textContent = data.data[elementValue]+" "+tableUnits[counter];
             counter++;
         }
-        newArdunioTableDataElement.classList.add(`table-data-general`)
-        newArdunioTableDataElement.classList.add(`data-${currentUUID}`)
-        newArdunioRowElement.appendChild(newArdunioTableDataElement);
+        newArduinoTableDataElement.classList.add(`table-data-general`)
+        newArduinoTableDataElement.classList.add(`data-${currentUUID}`)
+        newArduinoRowElement.appendChild(newArduinoTableDataElement);
     } 
 
-    let newArdunioTableData = document.createElement("td");
-    newArdunioTableData.classList.add(`table-data-general`)
-    let newArdunioTablaDataButton = document.createElement("button");
-    newArdunioTablaDataButton.classList.add(`button-table`)
-    newArdunioTablaDataButton.setAttribute("onclick", `javascript: openContextMenu("${currentUUID}");`);
-    newArdunioTablaDataButton.innerHTML = "&#8226;&#8226;&#8226;";
+    let newArduinoTableData = document.createElement("td");
+    newArduinoTableData.classList.add(`table-data-general`)
+    let newArduinoTablaDataButton = document.createElement("button");
+    newArduinoTablaDataButton.classList.add(`button-table`)
+    newArduinoTablaDataButton.setAttribute("onclick", `javascript: openContextMenu("${currentUUID}");`);
+    newArduinoTablaDataButton.innerHTML = "&#8226;&#8226;&#8226;";
 
-    newArdunioTableData.appendChild(newArdunioTablaDataButton);
-    newArdunioRowElement.appendChild(newArdunioTableData);
+    newArduinoTableData.appendChild(newArduinoTablaDataButton);
+    newArduinoRowElement.appendChild(newArduinoTableData);
 
-    ardunioTable.appendChild(newArdunioRowElement);
+    arduinoTable.appendChild(newArduinoRowElement);
 }
 
-//Bei einer Änderung am Ardunio, wird die Änderung ins Frontend übertragen
-function updateArdunioInDom(data) {
-    let currentUUID = data.uuid;
-    let newData = data.data;
+//Bei einer Änderung am Arduino, wird die Änderung ins Frontend übertragen
+function updateArduinoInDom(data) {
+    const newArduinoInfo = data.data;
 
-    const ardunioTableDataElements = document.querySelector(`#info-${currentUUID}`)
+    const arduinoTableDataElements = document.querySelectorAll(`.info-${data.uuid}`)
 
-    for(let childElementIndex in ardunioTableDataElements) {
-        if(ardunioTableDataElements[childElementIndex].textContent !== newData[childElementIndex]) {
-            ardunioTableDataElements[childElementIndex].textContent = newData[childElementIndex];
-            
-        }    
-    }
+    arduinoTableDataElements[0].textContent = newArduinoInfo.name;
+    arduinoTableDataElements[1].textContent = newArduinoInfo.location;  
 }
 
 //Wenn durch den Socket.io Event neue Daten empfangen werden, werden diese im Frontend geupdatet
-function updateArdunioDataInDom(data) {
-    let currentUUID = data.uuid;
-    let currentData = data.data;
+function updateArduinoDataInDom(data) {
+    const currentUUID = data.uuid;
+    const currentData = data.data;
 
-    const ardunioTableDataElements = document.querySelectorAll(`.data-${currentUUID}`)
-
-    console.log(currentData)
-    console.log(data.data)
+    const arduinoTableDataElements = document.querySelectorAll(`.data-${currentUUID}`)
 
     let counter = 0;
     for(const item in currentData) {
-        if(ardunioTableDataElements[counter].textContent !== currentData[item]+" "+tableUnits[counter]) {
-            ardunioTableDataElements[counter].textContent = currentData[item]+" "+tableUnits[counter];
+        if(arduinoTableDataElements[counter].textContent !== currentData[item]+" "+tableUnits[counter]) {
+            arduinoTableDataElements[counter].textContent = currentData[item]+" "+tableUnits[counter];
             //Update animiation
-            ardunioTableDataElements[counter].classList.add("data-update");
+            arduinoTableDataElements[counter].classList.add("data-update");
         }    
         counter++;
     }
 }
-
-let currentArdunioUUID;
-let currenArdunioName;
 
 const signoutButton = document.querySelector("#button-logout")
 const createButton = document.querySelector("#button-create")
@@ -153,29 +241,6 @@ const createButton = document.querySelector("#button-create")
 signoutButton.addEventListener("click", () => {
     //Signout API Call
 });
-
-//Blur im Hintergrund, wenn 
-const backgroundHide = document.querySelector(".background-hide");
-
-backgroundHide.addEventListener("click", () => {
-    closeAllMenus();
-})
-
-const arduinoCreateMenuCancelButton = document.querySelector("#arduino-create-menu-button-cancel");
-const arduinoDeleteMenuCancelButton = document.querySelector("#arduino-delete-menu-button-cancel");
-const arduinoChangePropertiesMenuCancelButton = document.querySelector("#arduino-change-properties-menu-button-cancel");
-
-arduinoCreateMenuCancelButton.addEventListener("click", () => {
-    closeAllMenus();
-})
-
-arduinoDeleteMenuCancelButton.addEventListener("click", () => {
-    closeAllMenus();
-})
-
-arduinoChangePropertiesMenuCancelButton.addEventListener("click", () => {
-    closeAllMenus();
-})
 
 const arduinoCreateMenu = document.querySelector("#arduino-create-menu");
 const arduinoDeleteMenu = document.querySelector("#arduino-delete-menu");
@@ -203,6 +268,42 @@ function closeAllMenus() {
     backgroundHide.style.display = "none";
 }
 
+//Blur behind every menu which has been opened
+const backgroundHide = document.querySelector(".background-hide");
+
+backgroundHide.addEventListener("click", () => {
+    closeAllMenus();
+})
+
+const arduinoCreateMenuCancelButton = document.querySelector(".arduino-create-menu-button-cancel");
+const arduinoCreateMenuCancelButton2 = document.querySelector(".arduino-create-menu-button-cancel-two");
+const arduinoDeleteMenuCancelButton = document.querySelector("#arduino-delete-menu-button-cancel");
+const arduinoChangePropertiesMenuCancelButton = document.querySelector("#arduino-change-properties-menu-button-cancel");
+const ardunioCreateMenuForm = document.querySelector("#arduino-create-menu__form");
+const ardunioCreateMenuInfo = document.querySelector(".arduino-create-menu__info");
+
+arduinoCreateMenuCancelButton.addEventListener("click", () => {
+    closeAllMenus();
+    ardunioCreateMenuForm.style.display = "flex";
+    ardunioCreateMenuInfo.style.display = "none";
+})
+
+arduinoCreateMenuCancelButton2.addEventListener("click", () => {
+    closeAllMenus();
+    ardunioCreateMenuForm.style.display = "flex";
+    ardunioCreateMenuInfo.style.display = "none";
+})
+
+arduinoDeleteMenuCancelButton.addEventListener("click", () => {
+    closeAllMenus();
+})
+
+arduinoChangePropertiesMenuCancelButton.addEventListener("click", () => {
+    closeAllMenus();
+})
+
+
+
 //Wechsel der Anzeige im CSS, wenn Menü geöffnet werden soll
 function changeMenuState(menuelement) {
     
@@ -211,14 +312,11 @@ function changeMenuState(menuelement) {
     if(menuelement.style.display = "none") {
         menuelement.style.display = "block";
         backgroundHide.style.display = "block";
-    } else {
-        menuelement.style.display = "none";
-        menuelement.style.display = "none";
-    }
+    } 
 }
 
 function openContextMenu(uuid) {
-    currentArdunioUUID = uuid;
+    currentArduinoUUID = uuid;
     changeMenuState(arduinoOptionsMenu);
 }
 
@@ -239,35 +337,18 @@ arduinoOptionsMenuCancelButton.addEventListener("click", () => {
 })
 
 createButton.addEventListener("click", () => {
-    changeMenuState(arduinoCreateMenu);
+    if(!socket.connected) {
+        testSocketConnection()
+    } else {
+        changeMenuState(arduinoCreateMenu);
+    }
 })
 
-const statusInfo = document.querySelector(".status-info");
-const statusInfoMessage = document.querySelector(".status-info");
-const statusInfoAnimationSection = document.querySelector(".status-info__animation-section");
-
-function displayLoader(message, error) {
-    if(error == true) {
-        statusInfo.classList.remove("status-info--animate")
-        statusInfo.classList.add("status-info--error")
-        statusInfo.style.backgroundcolor = "FF6A6A";
-    } else {
-        statusInfo.classList.remove("status-info--error")
-        statusInfo.classList.add("status-info--animate")
-    }
-    statusInfo.style.display = "block";
-    statusInfoMessage.textContent = message;
-}
-
-function hideLoader() {
-    statusInfo.style.display = "none";
-}
-
-//Asynchrone Funktion, weclhe die Daten per Post Request sendet 
-async function sendJSONToBackend(url, JSONData, infoDOMobject, displayMessage) {
+//Functions used to send data to the backend with http POST
+async function sendJSONToBackend(url, JSONData, displayMessage) {
     try {
         displayLoader(displayMessage, false);
-        const reponse = await fetch(url, {
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -275,16 +356,59 @@ async function sendJSONToBackend(url, JSONData, infoDOMobject, displayMessage) {
             body: JSON.stringify(JSONData)
         })
         hideLoader();
-        return reponse;
+        if(response.ok) {
+            return response;
+        } else {
+            throw new Error;
+        }
     } catch (error) {
         displayLoader("Keine Verbindung zum Server!", true);
         console.error(error)
-        return error;
     }
 }
 
+const arduinoChangePropertiesMenuName = document.querySelector("[name='change-arduino-name']")
+const arduinoChangePropertiesMenuLocation = document.querySelector("[name='change-arduino-location']")
+
+arduinoChangePropertiesMenuForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if(arduinoChangePropertiesMenuName.value.trim() === "") {
+        arduinoChangePropertiesMenuName.classList.remove("input-outline--green");
+        arduinoChangePropertiesMenuName.classList.add("input-outline--red");
+    } else {
+        arduinoChangePropertiesMenuName.classList.remove("input-outline--red");
+        arduinoChangePropertiesMenuName.classList.add("input-outline--green");
+    }
+
+    if(arduinoChangePropertiesMenuLocation.value.trim() === "") {
+        arduinoChangePropertiesMenuLocation.classList.remove("input-outline--green");
+        arduinoChangePropertiesMenuLocation.classList.add("input-outline--red");
+    } else {
+        arduinoChangePropertiesMenuLocation.classList.remove("input-outline--red");
+        arduinoChangePropertiesMenuLocation.classList.add("input-outline--green");
+    }
+
+    if (arduinoChangePropertiesMenuName.value.trim() !== "" &&  arduinoChangePropertiesMenuLocation.value.trim() !== "") {
+        arduinoChangePropertiesMenuName.classList.remove("input-outline--red");
+        arduinoChangePropertiesMenuLocation.classList.remove("input-outline--red");
+        arduinoChangePropertiesMenuName.classList.add("input-outline--green");
+        arduinoChangePropertiesMenuLocation.classList.add("input-outline--green"); 
+
+        sendJSONToBackend(`${API_URL}/api/arduino/change/?uuid=${currentArduinoUUID}`,{name:  arduinoChangePropertiesMenuName.value, location:  arduinoChangePropertiesMenuLocation.value},"Arduino wird geändert")
+        .catch((error) => displayLoader(error, true))
+        closeAllMenus();
+        arduinoChangePropertiesMenuName.classList.remove("input-outline--green");
+        arduinoChangePropertiesMenuLocation.classList.remove("input-outline--green");
+    }
+})
+
 const arudnioCreateMenuFormName = document.querySelector("[name='new-arduino-name']")
 const arudnioCreateMenuFormLocation = document.querySelector("[name='new-arduino-location']")
+
+const arduinoCreateMenuInfoUUID = document.querySelector("#arduino-create-menu__info-uuid");
+const arduinoCreateMenuInfoAPIKEY = document.querySelector("#arduino-create-menu__info-apikey");
+
 
 arduinoCreateMenuForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -311,66 +435,62 @@ arduinoCreateMenuForm.addEventListener("submit", (event) => {
         arudnioCreateMenuFormName.classList.add("input-outline--green");
         arudnioCreateMenuFormLocation.classList.add("input-outline--green"); 
 
-        sendJSONToBackend("http://127.0.0.1:3300/api/arduino/create/",
-         {name: arudnioCreateMenuFormName.value, location: arudnioCreateMenuFormLocation.value, lastseen: "00:00"},
-         "Ardunio wird erstellt");
-        closeAllMenus();
+        sendJSONToBackend(API_URL+"/api/arduino/create/",{name: arudnioCreateMenuFormName.value, location: arudnioCreateMenuFormLocation.value, lastseen: "00:00"},"Arduino wird erstellt")
+        .then((response) => response.json()) 
+        .then((data) => {
+            ardunioCreateMenuForm.style.display = "none";
+            ardunioCreateMenuInfo.style.display = "flex";
+            arduinoCreateMenuInfoAPIKEY.textContent = data.apikey;
+            arduinoCreateMenuInfoUUID.textContent = data.uuid;
+        })
+        .catch((error) => {
+            displayLoader(error, true)
+        })
         arudnioCreateMenuFormName.classList.remove("input-outline--green");
         arudnioCreateMenuFormLocation.classList.remove("input-outline--green");
     }
 })
 
-const ardunioDeleteForm = document.querySelector("#arduino-delete-menu__form");
-const ardunioDeleteFormButton = document.querySelector("#arduino-delete-menu-button-delete");
+const arduinoDeleteForm = document.querySelector("#arduino-delete-menu__form");
+const arduinoDeleteFormButton = document.querySelector("#arduino-delete-menu-button-delete");
 const arduinoDeleteMenuFormNameInput = document.querySelector("[name='delete-arduino-name']");
 
-async function deleteArdunio(url, displayMessage) {
-    try {
-        displayLoader(displayMessage, false);
-        const reponse = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: '{"test": "mest"}'
-        })
-        hideLoader();
-        return reponse;
-    } catch (error) {
-        displayLoader("Keine Verbindung zum Server!", true);
-        console.error(error)
-        return error;
-    }
-}
-
-ardunioDeleteForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    console.log("delete awdawdawdawd")
-    console.log(currentArdunioUUID)
+arduinoDeleteForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
     try {
         displayLoader("Arduino wird gelöscht", false);
-        const response = await fetch(`http://127.0.0.1:3300/api/arduino/delete?uuid=${currentArdunioUUID}`, {method: 'POST'})
+        sendJSONToBackend(`${API_URL}/api/arduino/delete?uuid=${currentArduinoUUID}`, {}, "Arduino wird gelöscht")
+        // const response = await fetch(`${API_URL}/api/arduino/delete?uuid=${currentArduinoUUID}`, {method: 'POST'})
         hideLoader();
         closeAllMenus();
-        //return reponse;
     } catch (error) {
         displayLoader("Keine Verbindung zum Server!", true);
         console.error(error)
-        //return error;
     }
 })
 
 arduinoDeleteMenuFormNameInput.addEventListener("input", () => {
-    const name = document.querySelectorAll(`.info-${currentArdunioUUID}`)[0].innerText;
+    const name = document.querySelectorAll(`.info-${currentArduinoUUID}`)[0].innerText;
 
     if(arduinoDeleteMenuFormNameInput.value === name) {
-        ardunioDeleteFormButton.setAttribute("type", "submit")
-        ardunioDeleteFormButton.classList.remove("button-red--grayed");
-        ardunioDeleteFormButton.classList.add("button-red");
+        arduinoDeleteFormButton.setAttribute("type", "submit")
+        arduinoDeleteFormButton.classList.remove("button-red--grayed");
+        arduinoDeleteFormButton.classList.add("button-red");
     } else {
-        ardunioDeleteFormButton.setAttribute("type", "button")
-        ardunioDeleteFormButton.classList.remove("button-red");
-        ardunioDeleteFormButton.classList.add("button-red--grayed");
+        arduinoDeleteFormButton.setAttribute("type", "button")
+        arduinoDeleteFormButton.classList.remove("button-red");
+        arduinoDeleteFormButton.classList.add("button-red--grayed");
     }
 })
+
+function copyClipboard(elementID) {
+    if(elementID == "arduino-create-menu__info-uuid-info") {
+        navigator.clipboard.writeText(currentArduinoUUID);
+    } else {
+        var textElement = document.getElementById(elementID);
+        navigator.clipboard.writeText(textElement.textContent);
+    }
+}
+
+testSocketConnection()
